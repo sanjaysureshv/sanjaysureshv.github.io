@@ -6,7 +6,6 @@ Portfolio showcasing my work as a B.Sc. Physics (Honours with Research) student 
 
 ## Highlights
 - **Research & Internships:** Experimental Optics & Laser-Induced Breakdown Spectroscopy (LIBS) at CUSAT, Science Communicator at the Quantum Century Science Exhibition, and IUCAA School on Stellar & Solar Astronomy (Aditya-L1 mission training).
-- **Projects:** Sunspot Area Evolution & Mg II h Energy Emission Analysis (Aditya-L1 SUIT & SDO/HMI) and Cosmic Distance Scale Analysis using ESA Gaia data.
-- **Built-In Apps & Games:** Interactive MS-DOS command prompt, Astro Invaders, Photon Snake, and Quantum Sweeper.
+- **Projects:** Sunspot Area Evolution & Mg II h Energy Emission Analysis (Aditya-L1 SUIT & SDO/HMI) and Cosmic Distance Scale Analysis using ESA Gaia data. 
 - **GitHub Profile:** https://github.com/sanjaysureshv
 - **LinkedIn:** https://www.linkedin.com/in/sanjaysureshv
