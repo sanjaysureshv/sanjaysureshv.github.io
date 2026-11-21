@@ -2,1375 +2,2206 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SANJAY_OS v98.5 — Sanjay Suresh V. | Physics Portfolio</title>
-  <meta name="description" content="Retro 90s OS portfolio of Sanjay Suresh V., B.Sc. Physics (Honours with Research) student specializing in Computational Astrophysics, Experimental Optics, and Science Communication." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>SANJAY_OS v95.26 — Sanjay Suresh V. | Physics &amp; Astrophysics Portfolio</title>
+  <meta name="description" content="Interactive 1990s retro pixelated desktop portfolio of Sanjay Suresh V. — B.Sc. Physics (Honours with Research), Computational Astrophysics, Experimental Optics, and Science Communication." />
 
-  <!-- Pixel Fonts: 'Press Start 2P' for retro pixel headers & 'VT323' for crisp terminal/window readability -->
+  <!-- Pixel Fonts: Press Start 2P (Display/Titles) & VT323 (Crisp Retro Terminal/Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* =====================================================================
-       CLASSIC 1990s RETRO PIXEL OS STYLING
-       ===================================================================== */
+    /* =========================================================================
+       1. RETRO WIN95 / PIXEL OS DESIGN TOKENS & BASE RESET
+       ========================================================================= */
     :root {
-      --desktop-teal: #008080;
-      --desktop-grid: rgba(0, 56, 56, 0.35);
-      --win-gray: #c0c0c0;
-      --win-dark: #808080;
-      --win-darker: #000000;
+      --win-bg: #c0c0c0;
       --win-light: #ffffff;
+      --win-mid: #dfdfdf;
+      --win-shadow: #808080;
+      --win-dark: #000000;
       --win-title-active: #000080;
-      --win-title-inactive: #7f7f7f;
-      --crt-amber: #ffb000;
+      --win-title-grad: #1084d0;
+      --win-title-inactive: #808080;
+      --screen-bg: #1e1035;
+      --accent-yellow: #ffd700;
+      --accent-red: #c81e1e;
       --crt-green: #33ff33;
+      --taskbar-h: 38px;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border-radius: 0 !important; /* Strict crisp 90s pixel edges */
       image-rendering: pixelated;
     }
 
     html, body {
-      margin: 0;
-      padding: 0;
       width: 100%;
       height: 100%;
-      overflow-x: hidden;
+      overflow: hidden;
       font-family: 'VT323', monospace;
-      font-size: 19px;
-      background-color: var(--desktop-teal);
-      /* Classic dithered pixel grid wallpaper */
-      background-image:
-        linear-gradient(45deg, var(--desktop-grid) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--desktop-grid) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--desktop-grid) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--desktop-grid) 75%);
-      background-size: 4px 4px;
-      background-position: 0 0, 0 2px, 2px -2px, -2px 0;
+      font-size: 18px;
+      line-height: 1.35;
       color: #000000;
+      background-color: var(--screen-bg);
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .font-pixel-title {
-      font-family: 'Press Start 2P', monospace;
-      letter-spacing: 0.03em;
+    /* =========================================================================
+       2. DESKTOP WALLPAPER (Pixel Sunset City Hero + Sunset Fallback Gradient)
+       Place "wallpaper.png" (or "Pixel Sunset Hero in Retro City.png") in the
+       same GitHub repository folder as index.html!
+       ========================================================================= */
+    #desktop {
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - var(--taskbar-h));
+      overflow: hidden;
+      background-color: #261447;
+      background-image:
+        url('wallpaper.png'),
+        url('Pixel Sunset Hero in Retro City.png'),
+        linear-gradient(
+          180deg,
+          #2a1758 0%,
+          #5c246e 26%,
+          #a93b6b 48%,
+          #e86a58 68%,
+          #f6a45c 80%,
+          #2b1a4a 80.5%,
+          #180e2e 100%
+        );
+      background-size: cover, cover, 100% 100%;
+      background-position: center bottom, center bottom, center center;
+      background-repeat: no-repeat, no-repeat, no-repeat;
+      image-rendering: pixelated;
     }
 
-    .font-pixel-body {
-      font-family: 'VT323', monospace;
-    }
-
-    /* Classic Windows 95/98 3D Outset Bevel */
-    .win-bevel-out {
-      background-color: var(--win-gray);
-      border-top: 3px solid var(--win-light);
-      border-left: 3px solid var(--win-light);
-      border-right: 3px solid var(--win-darker);
-      border-bottom: 3px solid var(--win-darker);
-      box-shadow: inset -2px -2px 0px var(--win-dark), inset 2px 2px 0px #dfdfdf;
-    }
-
-    /* Classic Windows 95/98 3D Inset Bevel */
-    .win-bevel-in {
-      background-color: #ffffff;
-      border-top: 3px solid var(--win-dark);
-      border-left: 3px solid var(--win-dark);
-      border-right: 3px solid var(--win-light);
-      border-bottom: 3px solid var(--win-light);
-      box-shadow: inset 2px 2px 0px var(--win-darker), inset -1px -1px 0px #dfdfdf;
-    }
-
-    /* Retro Pixel Button */
-    .win-btn {
-      background-color: var(--win-gray);
-      border-top: 2px solid var(--win-light);
-      border-left: 2px solid var(--win-light);
-      border-right: 2px solid var(--win-darker);
-      border-bottom: 2px solid var(--win-darker);
-      box-shadow: inset -1px -1px 0px var(--win-dark);
-      color: #000000;
-      cursor: pointer;
-      transition: transform 0.04s steps(1);
-    }
-
-    .win-btn:hover {
-      background-color: #cacaca;
-    }
-
-    .win-btn:active,
-    .win-btn.active-tab {
-      border-top: 2px solid var(--win-darker);
-      border-left: 2px solid var(--win-darker);
-      border-right: 2px solid var(--win-light);
-      border-bottom: 2px solid var(--win-light);
-      box-shadow: inset 1px 1px 0px var(--win-dark);
-      background-color: #b4b4b4;
-      transform: translate(1px, 1px);
-    }
-
-    /* Window Title Bar */
-    .win-titlebar {
-      background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
-      color: #ffffff;
-      cursor: grab;
-    }
-
-    .win-titlebar:active {
-      cursor: grabbing;
-    }
-
-    .os-window.inactive .win-titlebar {
-      background: linear-gradient(90deg, #7f7f7f 0%, #a8a8a8 100%);
-      color: #dfdfdf;
-    }
-
-    /* Window Scrollbars (Classic Retro Style) */
-    .win-scroll::-webkit-scrollbar {
-      width: 16px;
-      height: 16px;
-    }
-    .win-scroll::-webkit-scrollbar-track {
-      background: #dfdfdf;
-      background-image: radial-gradient(#808080 1px, transparent 0);
-      background-size: 2px 2px;
-    }
-    .win-scroll::-webkit-scrollbar-thumb {
-      background: var(--win-gray);
-      border-top: 2px solid var(--win-light);
-      border-left: 2px solid var(--win-light);
-      border-right: 2px solid var(--win-darker);
-      border-bottom: 2px solid var(--win-darker);
-    }
-
-    /* Desktop Shortcut Icon Styling */
-    .desktop-icon {
-      width: 96px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 6px 4px;
-      cursor: pointer;
-      border: 1px dotted transparent;
-    }
-
-    .desktop-icon:hover .icon-label,
-    .desktop-icon:focus .icon-label {
-      background-color: #000080;
-      color: #ffffff;
-      outline: 1px dotted #ffff00;
-    }
-
-    .icon-label {
-      margin-top: 6px;
-      padding: 2px 5px;
-      color: #ffffff;
-      text-shadow: 1px 1px 0px #000000, -1px 1px 0px #000000, 1px -1px 0px #000000;
-      font-size: 16px;
-      line-height: 1.1;
-      word-break: break-word;
-    }
-
-    /* CRT Scanlines Overlay */
-    .crt-overlay {
+    /* Subtle dark vignette at the left icon column for guaranteed readability */
+    #desktop::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(14, 8, 28, 0.52) 0%,
+        rgba(14, 8, 28, 0.18) 38%,
+        rgba(14, 8, 28, 0.05) 100%
+      );
       pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Optional Toggleable CRT Scanlines + Vignette Overlay */
+    #crt-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.22) 50%
-      ), linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 0.03),
-        rgba(0, 255, 0, 0.01),
-        rgba(0, 0, 255, 0.03)
-      );
-      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%),
+        radial-gradient(circle at center, transparent 62%, rgba(0, 0, 0, 0.35) 100%);
+      background-size: 100% 4px, 100% 100%;
+      transition: opacity 0.2s steps(2);
     }
 
-    .crt-hidden {
+    #crt-overlay.crt-off {
+      opacity: 0;
+    }
+
+    /* =========================================================================
+       3. CLASSIC WIN95 3D BEVEL UTILITIES
+       ========================================================================= */
+    .bevel-out {
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: inset -1px -1px 0 var(--win-shadow), inset 1px 1px 0 var(--win-mid);
+    }
+
+    .bevel-in {
+      background: #ffffff;
+      border-top: 2px solid var(--win-shadow);
+      border-left: 2px solid var(--win-shadow);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-mid);
+    }
+
+    .retro-btn {
+      font-family: 'VT323', monospace;
+      font-size: 17px;
+      color: #000;
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: inset -1px -1px 0 var(--win-shadow);
+      padding: 3px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .retro-btn:active,
+    .retro-btn.active {
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      box-shadow: inset 1px 1px 0 var(--win-shadow);
+      transform: translate(1px, 1px);
+    }
+
+    .retro-btn-primary {
+      background: #000080;
+      color: #ffffff;
+    }
+
+    .retro-btn-gold {
+      background: #ffd700;
+      color: #000000;
+      font-weight: bold;
+    }
+
+    /* =========================================================================
+       4. DESKTOP SHORTCUT ICONS (Multi-column responsive grid + Crisp Pills)
+       ========================================================================= */
+    #icon-grid {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(auto-fill, 88px);
+      grid-auto-columns: 96px;
+      gap: 6px 8px;
+      padding: 12px;
+      height: 100%;
+      width: max-content;
+      max-width: 100%;
+      align-content: start;
+    }
+
+    .desktop-icon {
+      width: 92px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 2px;
+      cursor: pointer;
+      border: 1px dotted transparent;
+      background: transparent;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .desktop-icon:hover .icon-art,
+    .desktop-icon:focus .icon-art {
+      transform: translateY(-2px);
+    }
+
+    .desktop-icon:focus,
+    .desktop-icon.selected {
+      border: 1px dotted #ffd700;
+    }
+
+    .desktop-icon .icon-art {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.85));
+      transition: transform 0.1s steps(2);
+    }
+
+    /* High-contrast retro dark pill behind labels so text pops over sunset sky */
+    .desktop-icon .icon-label {
+      font-family: 'VT323', monospace;
+      font-size: 15px;
+      line-height: 1.05;
+      color: #ffffff;
+      background: rgba(14, 8, 30, 0.82);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      padding: 1px 5px;
+      text-shadow: 1px 1px 0 #000000;
+      word-break: break-word;
+      max-width: 90px;
+    }
+
+    .desktop-icon.selected .icon-label,
+    .desktop-icon:focus .icon-label {
+      background: #000080;
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    /* =========================================================================
+       5. RETRO WINDOWS (Draggable, Resizable/Maximizable, Responsive)
+       ========================================================================= */
+    .os-window {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      min-width: 290px;
+      max-width: 96vw;
+      max-height: calc(100vh - var(--taskbar-h) - 16px);
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.65), inset -1px -1px 0 var(--win-shadow);
+    }
+
+    .os-window.open {
+      display: flex;
+    }
+
+    .os-window.minimized {
       display: none !important;
     }
 
-    /* Pixel Progress Bar Blocks */
-    .pixel-bar-track {
-      background-color: #ffffff;
-      border: 2px solid #000000;
-      height: 18px;
-      padding: 2px;
-      display: flex;
-      gap: 2px;
-    }
-    .pixel-bar-fill {
-      background: repeating-linear-gradient(
-        90deg,
-        #000080 0px,
-        #000080 8px,
-        transparent 8px,
-        transparent 10px
-      );
-      height: 100%;
+    .os-window.maximized {
+      top: 4px !important;
+      left: 4px !important;
+      width: calc(100vw - 8px) !important;
+      height: calc(100vh - var(--taskbar-h) - 8px) !important;
+      max-width: none !important;
+      max-height: none !important;
     }
 
-    /* Selectable text inside windows */
-    .selectable-text {
+    .window-titlebar {
+      height: 26px;
+      background: linear-gradient(90deg, var(--win-title-inactive), #a0a0a0);
+      color: #dfdfdf;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px 2px 6px;
+      cursor: move;
+      flex-shrink: 0;
+    }
+
+    .os-window.active .window-titlebar {
+      background: linear-gradient(90deg, var(--win-title-active), var(--win-title-grad));
+      color: #ffffff;
+    }
+
+    .window-title-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .window-title-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      letter-spacing: 0.4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .window-controls {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .win-ctrl-btn {
+      width: 20px;
+      height: 18px;
+      background: var(--win-bg);
+      color: #000000;
+      border-top: 1.5px solid var(--win-light);
+      border-left: 1.5px solid var(--win-light);
+      border-right: 1.5px solid var(--win-dark);
+      border-bottom: 1.5px solid var(--win-dark);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .win-ctrl-btn:active {
+      border-top: 1.5px solid var(--win-dark);
+      border-left: 1.5px solid var(--win-dark);
+      border-right: 1.5px solid var(--win-light);
+      border-bottom: 1.5px solid var(--win-light);
+    }
+
+    .window-menubar {
+      background: var(--win-bg);
+      border-bottom: 1px solid var(--win-shadow);
+      padding: 2px 8px;
+      font-size: 15px;
+      display: flex;
+      gap: 14px;
+      color: #111;
+      flex-shrink: 0;
+    }
+
+    .window-menubar span u {
+      text-decoration: underline;
+    }
+
+    .window-body {
+      margin: 4px;
+      padding: 12px;
+      overflow-y: auto;
+      flex: 1;
       user-select: text;
     }
 
-    /* Responsive Desktop & Mobile Window Positioning */
-    @media (min-width: 768px) {
-      #desktop-workspace {
-        position: relative;
-        width: 100vw;
-        height: calc(100vh - 44px);
-        overflow: hidden;
-      }
-      .os-window {
-        position: absolute;
-        max-height: calc(100vh - 64px);
-      }
+    .window-statusbar {
+      height: 22px;
+      margin: 0 4px 4px 4px;
+      padding: 1px 6px;
+      font-size: 14px;
+      color: #222;
+      border-top: 1px solid var(--win-shadow);
+      border-left: 1px solid var(--win-shadow);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
     }
 
-    @media (max-width: 767px) {
-      html, body {
-        overflow-y: auto;
+    /* =========================================================================
+       6. CONTENT TYPOGRAPHY, CARDS, BADGES & TERMINAL STYLES
+       ========================================================================= */
+    .pixel-h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #000080;
+      margin-bottom: 6px;
+    }
+
+    .pixel-h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #800000;
+      margin: 12px 0 6px 0;
+      border-bottom: 2px dashed #808080;
+      padding-bottom: 4px;
+    }
+
+    .retro-card {
+      background: #f4f4f0;
+      border: 2px solid #808080;
+      border-right-color: #ffffff;
+      border-bottom-color: #ffffff;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .retro-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .retro-card-title {
+      font-weight: bold;
+      font-size: 20px;
+      color: #000080;
+    }
+
+    .retro-badge {
+      display: inline-block;
+      background: #000080;
+      color: #ffd700;
+      padding: 1px 6px;
+      font-size: 15px;
+      border: 1px solid #000;
+    }
+
+    .retro-badge-red {
+      background: #9b111e;
+      color: #ffffff;
+    }
+
+    .retro-badge-green {
+      background: #0b5e20;
+      color: #ffffff;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .skill-chip {
+      background: #dfdfdf;
+      border: 1px solid #000;
+      box-shadow: 1px 1px 0 #808080;
+      padding: 1px 7px;
+      font-size: 16px;
+    }
+
+    .retro-list {
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    .retro-list li {
+      margin-bottom: 3px;
+    }
+
+    /* DOS Terminal inside CONTACT.BAT */
+    .dos-terminal {
+      background: #000000;
+      color: var(--crt-green);
+      font-family: 'VT323', monospace;
+      font-size: 17px;
+      padding: 10px;
+      border: 2px inset #808080;
+      margin-top: 10px;
+    }
+
+    .dos-output {
+      max-height: 130px;
+      overflow-y: auto;
+      margin-bottom: 6px;
+      white-space: pre-wrap;
+    }
+
+    .dos-input-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dos-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--crt-green);
+      font-family: 'VT323', monospace;
+      font-size: 17px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* =========================================================================
+       7. RETRO ARCADE GAMES STYLING
+       ========================================================================= */
+    .game-container {
+      background: #120b24;
+      color: #ffffff;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .game-hud {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000000;
+      border: 2px solid #555;
+      padding: 4px 10px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: #ffd700;
+    }
+
+    .game-canvas {
+      background: #070410;
+      border: 3px solid #808080;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+      display: block;
+      max-width: 100%;
+    }
+
+    .game-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .arcade-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      padding: 8px 12px;
+      background: #c0c0c0;
+      color: #000;
+      border-top: 3px solid #fff;
+      border-left: 3px solid #fff;
+      border-right: 3px solid #404040;
+      border-bottom: 3px solid #404040;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .arcade-btn:active {
+      border-top: 3px solid #404040;
+      border-left: 3px solid #404040;
+      border-right: 3px solid #fff;
+      border-bottom: 3px solid #fff;
+      background: #ffd700;
+    }
+
+    .arcade-btn-fire {
+      background: #d92626;
+      color: #fff;
+    }
+
+    /* Minesweeper Grid */
+    .ms-board {
+      display: grid;
+      grid-template-columns: repeat(9, 28px);
+      grid-template-rows: repeat(9, 28px);
+      gap: 1px;
+      background: #808080;
+      border: 3px solid #808080;
+    }
+
+    .ms-cell {
+      width: 28px;
+      height: 28px;
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .ms-cell.revealed {
+      background: #dcdcdc;
+      border: 1px solid #999;
+    }
+
+    .ms-cell.mine {
+      background: #e02424;
+    }
+
+    .ms-n1 { color: #0000ff; }
+    .ms-n2 { color: #008000; }
+    .ms-n3 { color: #ff0000; }
+    .ms-n4 { color: #000080; }
+    .ms-n5 { color: #800000; }
+    .ms-n6 { color: #008080; }
+    .ms-n7 { color: #000000; }
+    .ms-n8 { color: #808080; }
+
+    /* =========================================================================
+       8. TASKBAR & START MENU
+       ========================================================================= */
+    #taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--taskbar-h);
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 4px;
+      z-index: 9000;
+      gap: 4px;
+    }
+
+    #start-btn {
+      height: 30px;
+      padding: 0 10px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    #start-btn.active {
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      background: #b0b0b0;
+    }
+
+    #taskbar-tasks {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      overflow-x: auto;
+      height: 100%;
+    }
+
+    .task-tab {
+      height: 28px;
+      min-width: 105px;
+      max-width: 165px;
+      padding: 0 8px;
+      font-family: 'VT323', monospace;
+      font-size: 16px;
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .task-tab.active-task {
+      background: #dfdfdf;
+      font-weight: bold;
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+    }
+
+    #system-tray {
+      height: 28px;
+      padding: 0 8px;
+      border-top: 2px solid var(--win-shadow);
+      border-left: 2px solid var(--win-shadow);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    #start-menu {
+      position: fixed;
+      bottom: var(--taskbar-h);
+      left: 4px;
+      width: 285px;
+      background: var(--win-bg);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-dark);
+      border-bottom: 2px solid var(--win-dark);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.7);
+      display: none;
+      z-index: 9500;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    #start-menu.open {
+      display: flex;
+    }
+
+    .start-sidebar {
+      width: 28px;
+      background: linear-gradient(180deg, #000080, #800080);
+      color: #ffd700;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      padding: 8px 4px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 1px;
+    }
+
+    .start-items {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 3px;
+    }
+
+    .start-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      line-height: 1.45;
+      color: #000;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .start-item:hover {
+      background: #000080;
+      color: #ffffff;
+    }
+
+    .start-divider {
+      height: 1px;
+      background: var(--win-shadow);
+      border-bottom: 1px solid var(--win-light);
+      margin: 3px 2px;
+    }
+
+    /* Toast Message Box (replaces alert()) */
+    #retro-toast {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9990;
+      background: #ffffe1;
+      color: #000000;
+      border: 2px solid #000000;
+      box-shadow: 3px 3px 0 #000;
+      padding: 6px 12px;
+      font-size: 16px;
+      display: none;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 640px) {
+      #icon-grid {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        width: 100%;
         height: auto;
-        min-height: 100vh;
+        max-height: 100%;
+        overflow-y: auto;
+        justify-items: center;
       }
-      #desktop-workspace {
-        padding: 12px 12px 68px 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      }
+
       .os-window {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        left: 2vw !important;
+        top: 6px !important;
+        width: 96vw !important;
+        max-height: calc(100vh - var(--taskbar-h) - 12px) !important;
+      }
+
+      .window-title-text {
+        font-size: 9px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Optional CRT Scanline Effect Overlay -->
+  <div id="crt-overlay"></div>
 
-  <!-- CRT Scanlines Overlay (Toggled via Desktop Icon or Start Menu) -->
-  <div id="crt-overlay" class="crt-overlay"></div>
+  <!-- Non-blocking Retro Notification Banner -->
+  <div id="retro-toast" role="status" aria-live="polite"></div>
 
-  <!-- =====================================================================
-       DESKTOP WORKSPACE (Shortcuts + Floating / Stacked Windows)
-       ===================================================================== -->
-  <main id="desktop-workspace">
-
-    <!-- DESKTOP SHORTCUT ICONS GRID -->
-    <section aria-label="Desktop Shortcuts" class="grid grid-cols-3 sm:grid-cols-4 md:flex md:flex-col md:flex-wrap md:content-start md:h-full gap-2 md:gap-3 p-1 md:p-4 z-10">
-
-      <!-- Shortcut 1: README.EXE (Hero / About) -->
-      <button type="button" onclick="openWindow('win-readme')" class="desktop-icon focus:outline-none" title="Open README.EXE">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="2" y="1" width="12" height="9" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
-          <rect x="3" y="2" width="10" height="7" fill="#000080"/>
-          <rect x="4" y="3" width="4" height="1" fill="#33ff33"/>
-          <rect x="4" y="5" width="7" height="1" fill="#ffffff"/>
-          <rect x="4" y="7" width="5" height="1" fill="#ffff00"/>
-          <rect x="6" y="10" width="4" height="2" fill="#808080" stroke="#000" stroke-width="1"/>
-          <rect x="3" y="12" width="10" height="3" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
-          <rect x="10" y="13" width="2" height="1" fill="#008000"/>
-        </svg>
+  <!-- =========================================================================
+       MAIN DESKTOP AREA WITH WALLPAPER & PIXEL SHORTCUT ICONS
+       ========================================================================= -->
+  <main id="desktop" aria-label="Sanjay OS Desktop">
+    <div id="icon-grid">
+      <!-- 1. README.EXE -->
+      <button class="desktop-icon" data-open="win-readme" title="Open README.EXE">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="2" y="1" width="10" height="14" fill="#fff" stroke="#000"/>
+            <polygon points="10,1 14,5 10,5" fill="#c0c0c0" stroke="#000"/>
+            <rect x="4" y="6" width="7" height="1" fill="#000080"/>
+            <rect x="4" y="8" width="8" height="1" fill="#444"/>
+            <rect x="4" y="10" width="6" height="1" fill="#444"/>
+            <rect x="4" y="12" width="7" height="1" fill="#c81e1e"/>
+          </svg>
+        </div>
         <span class="icon-label">README.EXE</span>
       </button>
 
-      <!-- Shortcut 2: INTERNSHIPS.DIR -->
-      <button type="button" onclick="openWindow('win-internships')" class="desktop-icon focus:outline-none" title="Open INTERNSHIPS.DIR">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="1" y="3" width="6" height="2" fill="#ffcc00" stroke="#000" stroke-width="1"/>
-          <rect x="1" y="4" width="14" height="10" fill="#ffdd33" stroke="#000" stroke-width="1"/>
-          <rect x="2" y="5" width="12" height="1" fill="#ffff99"/>
-          <rect x="2" y="12" width="12" height="1" fill="#cc9900"/>
-        </svg>
+      <!-- 2. INTERNSHIPS.DIR -->
+      <button class="desktop-icon" data-open="win-internships" title="Open INTERNSHIPS.DIR">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="1" y="3" width="6" height="2" fill="#ffd700" stroke="#000"/>
+            <rect x="1" y="4" width="14" height="10" fill="#ffdf4d" stroke="#000"/>
+            <rect x="2" y="6" width="12" height="7" fill="#f5b800"/>
+          </svg>
+        </div>
         <span class="icon-label">INTERNSHIPS.DIR</span>
       </button>
 
-      <!-- Shortcut 3: PROJECTS.EXE -->
-      <button type="button" onclick="openWindow('win-projects')" class="desktop-icon focus:outline-none" title="Open PROJECTS.EXE">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="1" y="2" width="14" height="12" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
-          <rect x="2" y="3" width="12" height="2" fill="#000080"/>
-          <rect x="12" y="3" width="1" height="1" fill="#ff0000"/>
-          <rect x="3" y="6" width="10" height="7" fill="#000000"/>
-          <rect x="5" y="8" width="2" height="2" fill="#ffff00"/>
-          <rect x="9" y="7" width="1" height="1" fill="#00ffff"/>
-          <rect x="10" y="10" width="2" height="1" fill="#ff5555"/>
-          <rect x="4" y="11" width="3" height="1" fill="#33ff33"/>
-        </svg>
+      <!-- 3. PROJECTS.EXE -->
+      <button class="desktop-icon" data-open="win-projects" title="Open PROJECTS.EXE">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="1" y="2" width="14" height="12" fill="#000080" stroke="#000"/>
+            <rect x="2" y="5" width="12" height="8" fill="#101830"/>
+            <circle cx="8" cy="9" r="3" fill="#ffd700"/>
+            <rect x="4" y="9" width="8" height="1" fill="#ff5500"/>
+          </svg>
+        </div>
         <span class="icon-label">PROJECTS.EXE</span>
       </button>
 
-      <!-- Shortcut 4: SKILLS.SYS -->
-      <button type="button" onclick="openWindow('win-skills')" class="desktop-icon focus:outline-none" title="Open SKILLS.SYS">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="4" y="4" width="8" height="8" fill="#2b2b2b" stroke="#000" stroke-width="1"/>
-          <rect x="5" y="5" width="6" height="6" fill="#008080"/>
-          <rect x="6" y="6" width="4" height="4" fill="#c0c0c0"/>
-          <!-- Chip Pins -->
-          <rect x="5" y="2" width="1" height="2" fill="#ffcc00"/>
-          <rect x="8" y="2" width="1" height="2" fill="#ffcc00"/>
-          <rect x="10" y="2" width="1" height="2" fill="#ffcc00"/>
-          <rect x="5" y="12" width="1" height="2" fill="#ffcc00"/>
-          <rect x="8" y="12" width="1" height="2" fill="#ffcc00"/>
-          <rect x="10" y="12" width="1" height="2" fill="#ffcc00"/>
-          <rect x="2" y="5" width="2" height="1" fill="#ffcc00"/>
-          <rect x="2" y="8" width="2" height="1" fill="#ffcc00"/>
-          <rect x="2" y="10" width="2" height="1" fill="#ffcc00"/>
-          <rect x="12" y="5" width="2" height="1" fill="#ffcc00"/>
-          <rect x="12" y="8" width="2" height="1" fill="#ffcc00"/>
-          <rect x="12" y="10" width="2" height="1" fill="#ffcc00"/>
-        </svg>
+      <!-- 4. SKILLS.SYS -->
+      <button class="desktop-icon" data-open="win-skills" title="Open SKILLS.SYS">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="3" y="3" width="10" height="10" fill="#2d2d2d" stroke="#000"/>
+            <rect x="5" y="5" width="6" height="6" fill="#00aa44"/>
+            <rect x="1" y="5" width="2" height="1" fill="#ffd700"/>
+            <rect x="1" y="8" width="2" height="1" fill="#ffd700"/>
+            <rect x="1" y="11" width="2" height="1" fill="#ffd700"/>
+            <rect x="13" y="5" width="2" height="1" fill="#ffd700"/>
+            <rect x="13" y="8" width="2" height="1" fill="#ffd700"/>
+            <rect x="13" y="11" width="2" height="1" fill="#ffd700"/>
+          </svg>
+        </div>
         <span class="icon-label">SKILLS.SYS</span>
       </button>
 
-      <!-- Shortcut 5: EDUCATION.LOG -->
-      <button type="button" onclick="openWindow('win-education')" class="desktop-icon focus:outline-none" title="Open EDUCATION.LOG">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="3" y="1" width="10" height="14" fill="#ffffff" stroke="#000" stroke-width="1"/>
-          <rect x="3" y="1" width="2" height="14" fill="#800000"/>
-          <rect x="6" y="3" width="5" height="1" fill="#000080"/>
-          <rect x="6" y="5" width="6" height="1" fill="#808080"/>
-          <rect x="6" y="7" width="6" height="1" fill="#808080"/>
-          <rect x="6" y="9" width="4" height="1" fill="#808080"/>
-          <rect x="6" y="11" width="5" height="2" fill="#ffcc00"/>
-        </svg>
+      <!-- 5. EDUCATION.LOG -->
+      <button class="desktop-icon" data-open="win-education" title="Open EDUCATION.LOG">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <polygon points="8,2 15,6 8,10 1,6" fill="#000080" stroke="#000"/>
+            <rect x="4" y="8" width="8" height="4" fill="#1e3a8a" stroke="#000"/>
+            <rect x="13" y="6" width="1" height="6" fill="#ffd700"/>
+          </svg>
+        </div>
         <span class="icon-label">EDUCATION.LOG</span>
       </button>
 
-      <!-- Shortcut 6: CONTACT.BAT -->
-      <button type="button" onclick="openWindow('win-contact')" class="desktop-icon focus:outline-none" title="Open CONTACT.BAT">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="1" y="2" width="14" height="12" fill="#000000" stroke="#c0c0c0" stroke-width="1"/>
-          <rect x="2" y="3" width="12" height="2" fill="#000080"/>
-          <rect x="3" y="7" width="2" height="1" fill="#33ff33"/>
-          <rect x="4" y="8" width="2" height="1" fill="#33ff33"/>
-          <rect x="3" y="9" width="2" height="1" fill="#33ff33"/>
-          <rect x="7" y="9" width="4" height="1" fill="#33ff33"/>
-        </svg>
+      <!-- 6. CONTACT.BAT -->
+      <button class="desktop-icon" data-open="win-contact" title="Open CONTACT.BAT">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="1" y="2" width="14" height="12" fill="#000000" stroke="#c0c0c0"/>
+            <text x="3" y="10" fill="#33ff33" font-size="7" font-family="monospace">C:\&gt;</text>
+          </svg>
+        </div>
         <span class="icon-label">CONTACT.BAT</span>
       </button>
 
-      <!-- Shortcut 7: CRT_MODE.CFG (Scanline Toggle) -->
-      <button type="button" onclick="toggleCRT()" class="desktop-icon focus:outline-none" title="Toggle CRT Monitor Scanlines">
-        <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="2" y="2" width="12" height="10" fill="#808080" stroke="#000" stroke-width="1"/>
-          <rect x="3" y="3" width="10" height="8" fill="#003300"/>
-          <rect x="3" y="4" width="10" height="1" fill="#33ff33"/>
-          <rect x="3" y="6" width="10" height="1" fill="#00aa00"/>
-          <rect x="3" y="8" width="10" height="1" fill="#33ff33"/>
-          <rect x="5" y="12" width="6" height="2" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
-        </svg>
-        <span class="icon-label">CRT_FILTER.CFG</span>
+      <!-- 7. GITHUB.URL -->
+      <a class="desktop-icon" href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer" title="Visit GitHub Profile (@sanjaysureshv)">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="2" y="2" width="12" height="12" fill="#181717" stroke="#ffffff"/>
+            <rect x="5" y="4" width="6" height="5" fill="#ffffff"/>
+            <rect x="5" y="3" width="1" height="2" fill="#ffffff"/>
+            <rect x="10" y="3" width="1" height="2" fill="#ffffff"/>
+            <rect x="6" y="6" width="1" height="1" fill="#000"/>
+            <rect x="9" y="6" width="1" height="1" fill="#000"/>
+            <rect x="6" y="9" width="4" height="4" fill="#ffffff"/>
+          </svg>
+        </div>
+        <span class="icon-label">GITHUB.URL</span>
+      </a>
+
+      <!-- 8. GAME 1: ASTRO_INVADERS.EXE -->
+      <button class="desktop-icon" data-open="win-game-invaders" title="Play Astro Invaders (Solar Flare Defense)">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="4" y="3" width="8" height="6" fill="#ff3b30"/>
+            <rect x="3" y="5" width="10" height="3" fill="#ff3b30"/>
+            <rect x="5" y="5" width="2" height="2" fill="#ffd700"/>
+            <rect x="9" y="5" width="2" height="2" fill="#ffd700"/>
+            <rect x="4" y="9" width="2" height="2" fill="#ff3b30"/>
+            <rect x="10" y="9" width="2" height="2" fill="#ff3b30"/>
+          </svg>
+        </div>
+        <span class="icon-label">INVADERS.EXE</span>
       </button>
 
-    </section>
-
-    <!-- ===================================================================
-         WINDOW 1: README.EXE (HERO / WELCOME — OPEN BY DEFAULT)
-         =================================================================== -->
-    <article
-      id="win-readme"
-      data-title="README.EXE"
-      style="top: 26px; left: 145px; width: 650px; z-index: 30;"
-      class="os-window win-bevel-out flex flex-col shadow-2xl"
-      onmousedown="focusWindow('win-readme')"
-    >
-      <!-- Title Bar -->
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-readme')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-yellow-300 border border-black shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">README.EXE — Welcome to SANJAY_OS</span>
+      <!-- 9. GAME 2: PHOTON_SNAKE.EXE -->
+      <button class="desktop-icon" data-open="win-game-snake" title="Play Photon Snake">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="2" y="2" width="12" height="12" fill="#0b1a10" stroke="#33ff33"/>
+            <rect x="4" y="10" width="6" height="2" fill="#33ff33"/>
+            <rect x="8" y="6" width="2" height="4" fill="#33ff33"/>
+            <rect x="11" y="4" width="2" height="2" fill="#ffd700"/>
+          </svg>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-readme')" aria-label="Minimize README.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-readme')" aria-label="Maximize README.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-readme')" aria-label="Close README.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
+        <span class="icon-label">SNAKE.EXE</span>
+      </button>
+
+      <!-- 10. GAME 3: QUANTUM_SWEEPER.EXE -->
+      <button class="desktop-icon" data-open="win-game-mines" title="Play Quantum Sweeper (Minesweeper)">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="2" y="2" width="12" height="12" fill="#c0c0c0" stroke="#000"/>
+            <circle cx="8" cy="8" r="3" fill="#000"/>
+            <rect x="7" y="3" width="2" height="10" fill="#000"/>
+            <rect x="3" y="7" width="10" height="2" fill="#000"/>
+            <rect x="6" y="6" width="2" height="2" fill="#ff3b30"/>
+          </svg>
+        </div>
+        <span class="icon-label">SWEEPER.EXE</span>
+      </button>
+
+      <!-- 11. CRT_FILTER.CFG -->
+      <button class="desktop-icon" id="icon-crt-toggle" title="Toggle Retro CRT Scanlines">
+        <div class="icon-art">
+          <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="1" y="2" width="14" height="10" fill="#c0c0c0" stroke="#000"/>
+            <rect x="3" y="4" width="10" height="6" fill="#008080"/>
+            <rect x="3" y="5" width="10" height="1" fill="#004444"/>
+            <rect x="3" y="7" width="10" height="1" fill="#004444"/>
+            <rect x="5" y="12" width="6" height="2" fill="#808080" stroke="#000"/>
+          </svg>
+        </div>
+        <span class="icon-label">CRT_FILTER.CFG</span>
+      </button>
+    </div>
+
+    <!-- =======================================================================
+         WINDOW 1: README.EXE (Open by default on load)
+         ======================================================================= -->
+    <section id="win-readme" class="os-window open active" style="top: 22px; left: 140px; width: 560px;" data-title="README.EXE">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>📄</span>
+          <span class="window-title-text">README.EXE — Sanjay Suresh V.</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-readme" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-readme" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-readme" title="Close">X</button>
         </div>
       </div>
-
-      <!-- Menu Strip -->
-      <div class="px-3 py-1 bg-[#c0c0c0] border-b border-[#808080] flex flex-wrap gap-4 text-base text-black">
+      <div class="window-menubar">
         <span><u>F</u>ile</span>
         <span><u>E</u>dit</span>
-        <span><u>P</u>hysics</span>
+        <span><u>V</u>iew</span>
         <span><u>H</u>elp</span>
       </div>
-
-      <!-- Window Content -->
-      <div class="p-4 sm:p-5 overflow-y-auto win-scroll max-h-[70vh] space-y-4">
-        <!-- System Banner -->
-        <div class="win-bevel-in p-4 bg-[#000080] text-white">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <p class="font-pixel-title text-[10px] text-yellow-300 mb-2">&gt; USER_PROFILE_LOADED [OK]</p>
-              <h1 class="font-pixel-title text-base sm:text-xl text-white leading-snug">
-                SANJAY SURESH V
-              </h1>
-              <p class="mt-2 text-lg sm:text-xl text-cyan-200 leading-tight">
-                B.Sc. Physics (Honours with Research) | Computational Astrophysics &amp; Experimental Optics
-              </p>
-            </div>
-            <!-- Retro Pixel Avatar Badge -->
-            <div class="shrink-0 self-start sm:self-center bg-[#c0c0c0] p-1.5 border-2 border-white">
-              <svg class="w-16 h-16" viewBox="0 0 16 16" shape-rendering="crispEdges">
-                <rect width="16" height="16" fill="#008080"/>
-                <!-- Hair -->
-                <rect x="4" y="2" width="8" height="3" fill="#1a1a1a"/>
-                <rect x="3" y="3" width="2" height="4" fill="#1a1a1a"/>
-                <rect x="11" y="3" width="2" height="4" fill="#1a1a1a"/>
-                <!-- Face -->
-                <rect x="5" y="4" width="6" height="6" fill="#d99b66"/>
-                <!-- Glasses -->
-                <rect x="4" y="6" width="3" height="2" fill="#ffffff" stroke="#000" stroke-width="0.6"/>
-                <rect x="9" y="6" width="3" height="2" fill="#ffffff" stroke="#000" stroke-width="0.6"/>
-                <rect x="7" y="6" width="2" height="1" fill="#000"/>
-                <!-- Smile -->
-                <rect x="7" y="8" width="2" height="1" fill="#7a3b1e"/>
-                <!-- Lab Coat / Shirt -->
-                <rect x="3" y="10" width="10" height="6" fill="#ffffff"/>
-                <rect x="7" y="10" width="2" height="6" fill="#000080"/>
-              </svg>
-            </div>
+      <div class="window-body bevel-in">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+          <div>
+            <div class="pixel-h1">SANJAY SURESH V.</div>
+            <span class="retro-badge">B.Sc. Physics (Honours with Research) · FYUGP</span>
           </div>
+          <span class="retro-badge retro-badge-red">5th Semester · Expected 2028</span>
         </div>
 
-        <!-- Bio Box -->
-        <div class="win-bevel-in p-3.5 bg-white text-black selectable-text leading-snug">
-          <p class="font-pixel-title text-[10px] text-[#000080] mb-2">ABOUT_ME.TXT</p>
-          <p class="text-lg sm:text-xl">
-            B.Sc. Physics (Honours with Research) student at <strong>University College, Thiruvananthapuram</strong> specializing in computational astrophysics and experimental optics. Experienced in astronomical data processing, signal analysis, and laser spectroscopy experiments. Passionate about data-driven physical discovery and eager to contribute to innovative observational and computational physics research initiatives.
-          </p>
+        <p style="margin-bottom: 10px;">
+          Welcome to <strong>SANJAY_OS v95.26</strong>! I am an undergraduate physics researcher at
+          <strong>University College, Thiruvananthapuram</strong> specializing in
+          <strong>computational astrophysics</strong>, <strong>experimental optics &amp; spectroscopy</strong>, and
+          <strong>science communication</strong>.
+        </p>
+
+        <p style="margin-bottom: 12px;">
+          Experienced in solar &amp; stellar FITS data pipelines (Aditya-L1 SUIT, SDO/HMI, ESA Gaia),
+          Lomb-Scargle periodogram signal analysis, laser diffraction, and laser-induced breakdown
+          spectroscopy (LIBS).
+        </p>
+
+        <div class="pixel-h2">QUICK LAUNCH</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+          <button class="retro-btn retro-btn-primary" data-open="win-internships">📁 Internships (3)</button>
+          <button class="retro-btn" data-open="win-projects">🔭 Research Projects</button>
+          <button class="retro-btn" data-open="win-skills">⚙️ Technical Skills</button>
+          <button class="retro-btn" data-open="win-education">🎓 Education</button>
+          <a class="retro-btn retro-btn-gold" href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer">🐙 GitHub (@sanjaysureshv)</a>
+          <button class="retro-btn" data-open="win-contact">💻 Contact / DOS</button>
         </div>
 
-        <!-- Quick Contact Info Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-base sm:text-lg selectable-text">
-          <div class="win-bevel-in px-3 py-2 bg-[#f4f4f4]">
-            <span class="font-bold text-[#000080]">EMAIL:</span>
-            <a href="mailto:sanjaysureshv123@gmail.com" class="underline hover:text-blue-800 break-all">sanjaysureshv123@gmail.com</a>
-          </div>
-          <div class="win-bevel-in px-3 py-2 bg-[#f4f4f4]">
-            <span class="font-bold text-[#000080]">LINKEDIN:</span>
-            <a href="https://www.linkedin.com/in/sanjaysureshv" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-800">linkedin.com/in/sanjaysureshv</a>
-          </div>
-          <div class="win-bevel-in px-3 py-2 bg-[#f4f4f4]">
-            <span class="font-bold text-[#000080]">PHONE:</span>
-            <span>+91 70341770623</span>
-          </div>
-          <div class="win-bevel-in px-3 py-2 bg-[#f4f4f4]">
-            <span class="font-bold text-[#000080]">LOCATION:</span>
-            <span>Malappuram / Thiruvananthapuram, Kerala</span>
-          </div>
-        </div>
-
-        <!-- Quick Launch Program Buttons -->
-        <div class="pt-1">
-          <p class="font-pixel-title text-[10px] text-black mb-2">QUICK_LAUNCH_PROGRAMS:</p>
-          <div class="flex flex-wrap gap-2">
-            <button type="button" onclick="openWindow('win-internships')" class="win-btn px-3 py-1.5 text-base sm:text-lg font-bold flex items-center gap-1.5">
-              <span>📂</span> <span>INTERNSHIPS.DIR</span>
-            </button>
-            <button type="button" onclick="openWindow('win-projects')" class="win-btn px-3 py-1.5 text-base sm:text-lg font-bold flex items-center gap-1.5">
-              <span>🔭</span> <span>PROJECTS.EXE</span>
-            </button>
-            <button type="button" onclick="openWindow('win-skills')" class="win-btn px-3 py-1.5 text-base sm:text-lg font-bold flex items-center gap-1.5">
-              <span>⚙️</span> <span>SKILLS.SYS</span>
-            </button>
-            <button type="button" onclick="openWindow('win-education')" class="win-btn px-3 py-1.5 text-base sm:text-lg font-bold flex items-center gap-1.5">
-              <span>🎓</span> <span>EDUCATION.LOG</span>
-            </button>
-            <button type="button" onclick="openWindow('win-contact')" class="win-btn px-3 py-1.5 text-base sm:text-lg font-bold flex items-center gap-1.5">
-              <span>💻</span> <span>CONTACT.BAT</span>
-            </button>
-          </div>
+        <div class="pixel-h2">ARCADE ZONE (PLAYABLE)</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+          <button class="retro-btn" data-open="win-game-invaders">👾 Astro Invaders</button>
+          <button class="retro-btn" data-open="win-game-snake">🐍 Photon Snake</button>
+          <button class="retro-btn" data-open="win-game-mines">💣 Quantum Sweeper</button>
         </div>
       </div>
-
-      <!-- Status Bar -->
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>Status: Ready | Sem 5 FYUGP</span>
-        <span>640KB Conventional Memory OK</span>
+      <div class="window-statusbar">
+        <span>Status: Ready | Malappuram &amp; Thiruvananthapuram, India</span>
+        <span>640K OK</span>
       </div>
-    </article>
+    </section>
 
-    <!-- ===================================================================
-         WINDOW 2: INTERNSHIPS.DIR (EXPERIENCE & QUANTUM CENTURY INTERNSHIP)
-         =================================================================== -->
-    <article
-      id="win-internships"
-      data-title="INTERNSHIPS.DIR"
-      style="top: 65px; left: 210px; width: 660px; z-index: 20;"
-      class="os-window hidden win-bevel-out flex-col shadow-2xl"
-      onmousedown="focusWindow('win-internships')"
-    >
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-internships')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-yellow-400 border border-black shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">C:\PORTFOLIO\INTERNSHIPS.DIR</span>
+    <!-- =======================================================================
+         WINDOW 2: INTERNSHIPS.DIR (CUSAT, Quantum Century, IUCAA)
+         ======================================================================= -->
+    <section id="win-internships" class="os-window" style="top: 44px; left: 190px; width: 590px;" data-title="INTERNSHIPS.DIR">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>📁</span>
+          <span class="window-title-text">C:\PORTFOLIO\INTERNSHIPS.DIR</span>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-internships')" aria-label="Minimize INTERNSHIPS.DIR" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-internships')" aria-label="Maximize INTERNSHIPS.DIR" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-internships')" aria-label="Close INTERNSHIPS.DIR" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-internships" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-internships" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-internships" title="Close">X</button>
         </div>
       </div>
-
-      <div class="p-4 sm:p-5 overflow-y-auto win-scroll max-h-[72vh] space-y-4 selectable-text">
-        <div class="flex items-center justify-between border-b-2 border-[#808080] pb-2">
-          <h2 class="font-pixel-title text-xs sm:text-sm text-[#000080]">RESEARCH &amp; SCIENCE COMMUNICATION LOGS</h2>
-          <span class="font-mono text-sm bg-black text-[#33ff33] px-2 py-0.5">3 RECORDS</span>
-        </div>
+      <div class="window-body bevel-in">
+        <div class="pixel-h1">RESEARCH &amp; OUTREACH INTERNSHIPS</div>
 
         <!-- Internship 1: CUSAT -->
-        <div class="win-bevel-in p-4 bg-white space-y-2">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="bg-[#000080] text-white px-2 py-0.5 font-pixel-title text-[9px]">APR – MAY 2026</span>
-            <span class="text-base font-bold text-[#800000]">1-Month Experimental Optics &amp; Spectroscopy Program</span>
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Research Intern — Experimental Optics &amp; Spectroscopy</span>
+            <span class="retro-badge">Apr – May 2026</span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">
-            Research Intern — Department of Physics, Cochin University of Science and Technology (CUSAT)
-          </h3>
-          <ul class="list-disc pl-5 space-y-1.5 text-lg text-black leading-snug">
-            <li>
-              <strong>Optical Slit Width Determination:</strong> Conducted single-slit laser diffraction experiments to extract spatial intensity profiles, utilizing <strong>ImageJ</strong> for pixel scale calibration and diffraction profile analysis.
-            </li>
-            <li>
-              <strong>Laser-Produced Air Plasma Emission Spectroscopy:</strong> Analyzed laser-induced breakdown spectroscopy (<strong>LIBS</strong>) spectra from ambient air breakdown, identifying elemental emission lines and studying plasma characteristics.
-            </li>
+          <div style="font-weight:bold; color:#333;">Department of Physics, Cochin University of Science and Technology (CUSAT)</div>
+          <ul class="retro-list">
+            <li><strong>Optical Slit Width Determination:</strong> Conducted single-slit laser diffraction experiments to extract spatial intensity profiles, using <em>ImageJ</em> for pixel scale calibration and profile modeling.</li>
+            <li><strong>Laser-Produced Air Plasma Emission Spectroscopy:</strong> Analyzed Laser-Induced Breakdown Spectroscopy (LIBS) spectra from ambient air breakdown to identify elemental emission lines and plasma characteristics.</li>
           </ul>
+          <div class="tag-row">
+            <span class="skill-chip">LIBS</span>
+            <span class="skill-chip">Laser Diffraction</span>
+            <span class="skill-chip">ImageJ</span>
+            <span class="skill-chip">OriginPro</span>
+            <span class="skill-chip">SpectraSuite</span>
+          </div>
         </div>
 
         <!-- Internship 2: Quantum Century Science Exhibition -->
-        <div class="win-bevel-in p-4 bg-[#fffff2] space-y-2">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="bg-[#800000] text-white px-2 py-0.5 font-pixel-title text-[9px]">2026</span>
-            <span class="text-base font-bold text-[#000080]">Science Outreach &amp; Public Engagement</span>
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Science Communicator Intern</span>
+            <span class="retro-badge retro-badge-red">Quantum Century Exhibition</span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">
-            Science Communicator Intern — Quantum Century Science Exhibition
-          </h3>
-          <p class="text-base font-bold text-slate-700">
-            Govt. College for Women, Thiruvananthapuram
-          </p>
-          <ul class="list-disc pl-5 space-y-1.5 text-lg text-black leading-snug">
-            <li>
-              Served as a student science communicator and explainer at the <strong>Quantum Century</strong> science exhibition, demonstrating quantum physics concepts, interactive exhibits, and foundational quantum phenomena to students and public visitors.
-            </li>
+          <div style="font-weight:bold; color:#333;">Quantum Century Science Exhibition · Govt. College for Women, Thiruvananthapuram</div>
+          <ul class="retro-list">
+            <li>Communicated core quantum mechanics principles—including wave-particle duality, superposition, and quantum spectroscopy—to school students, researchers, and general visitors.</li>
+            <li>Facilitated live physics demonstrations and translated complex theoretical concepts into intuitive, hands-on visual explanations.</li>
           </ul>
+          <div class="tag-row">
+            <span class="skill-chip">Science Communication</span>
+            <span class="skill-chip">Quantum Mechanics Outreach</span>
+            <span class="skill-chip">Live Demonstrations</span>
+          </div>
         </div>
 
         <!-- Internship 3: IUCAA School -->
-        <div class="win-bevel-in p-4 bg-white space-y-2">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="bg-[#008080] text-white px-2 py-0.5 font-pixel-title text-[9px]">JANUARY 2026</span>
-            <span class="text-base font-bold text-[#000080]">Solar &amp; Stellar Astrophysics Workshop</span>
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Student Researcher — IUCAA School on Stellar &amp; Solar Astronomy</span>
+            <span class="retro-badge retro-badge-green">Jan 2026</span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">
-            Student Researcher — IUCAA School on Stellar &amp; Solar Astronomy
-          </h3>
-          <p class="text-base font-bold text-slate-700">
-            Mar Thoma College, Chungathara (in collaboration with IUCAA, Pune)
-          </p>
-          <ul class="list-disc pl-5 space-y-1.5 text-lg text-black leading-snug">
-            <li>
-              Participated in specialized training on solar physics at the IUCAA workshop, focusing on data acquisition protocols for India's <strong>Aditya-L1</strong> mission.
-            </li>
+          <div style="font-weight:bold; color:#333;">Mar Thoma College, Chungathara (in collaboration with IUCAA, Pune)</div>
+          <ul class="retro-list">
+            <li>Completed specialized observational solar and stellar astrophysics training focusing on data acquisition and calibration protocols for India's <strong>Aditya-L1</strong> solar mission.</li>
           </ul>
+          <div class="tag-row">
+            <span class="skill-chip">Aditya-L1</span>
+            <span class="skill-chip">Solar Physics</span>
+            <span class="skill-chip">FITS Analysis</span>
+            <span class="skill-chip">Astropy</span>
+          </div>
         </div>
       </div>
-
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>3 object(s) in directory</span>
-        <span>C:\PORTFOLIO\INTERNSHIPS.DIR</span>
+      <div class="window-statusbar">
+        <span>3 object(s) in C:\PORTFOLIO\INTERNSHIPS.DIR</span>
+        <span>DIR</span>
       </div>
-    </article>
+    </section>
 
-    <!-- ===================================================================
-         WINDOW 3: PROJECTS.EXE (ASTROPHYSICS & DATA ANALYSIS PROJECTS)
-         =================================================================== -->
-    <article
-      id="win-projects"
-      data-title="PROJECTS.EXE"
-      style="top: 95px; left: 260px; width: 670px; z-index: 20;"
-      class="os-window hidden win-bevel-out flex-col shadow-2xl"
-      onmousedown="focusWindow('win-projects')"
-    >
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-projects')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-cyan-300 border border-black shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">PROJECTS.EXE — Observational &amp; Computational Astrophysics</span>
+    <!-- =======================================================================
+         WINDOW 3: PROJECTS.EXE (Sunspot/Aditya-L1 & Gaia Cosmic Distance Scale)
+         ======================================================================= -->
+    <section id="win-projects" class="os-window" style="top: 66px; left: 230px; width: 580px;" data-title="PROJECTS.EXE">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>🔭</span>
+          <span class="window-title-text">PROJECTS.EXE — Astrophysics Research</span>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-projects')" aria-label="Minimize PROJECTS.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-projects')" aria-label="Maximize PROJECTS.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-projects')" aria-label="Close PROJECTS.EXE" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-projects" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-projects" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-projects" title="Close">X</button>
         </div>
       </div>
+      <div class="window-body bevel-in">
+        <div class="pixel-h1">ASTROPHYSICS &amp; COMPUTATIONAL PROJECTS</div>
 
-      <div class="p-4 sm:p-5 overflow-y-auto win-scroll max-h-[72vh] space-y-5 selectable-text">
         <!-- Project 1 -->
-        <div class="win-bevel-in p-4 bg-white space-y-3">
-          <div class="bg-black text-[#33ff33] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2">
-            <span class="font-pixel-title text-[10px]">PROJECT_01 // SOLAR_PHYSICS</span>
-            <span class="text-sm">SDO/HMI &amp; ADITYA-L1 SUIT</span>
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Sunspot Area Evolution &amp; Mg II h Energy Emission Analysis</span>
+            <span class="retro-badge">Aditya-L1 SUIT &amp; SDO/HMI</span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-[#000080]">
-            Sunspot Area Evolution and Mg II h Energy Emission Analysis
-          </h3>
-          <ul class="list-disc pl-5 space-y-1.5 text-lg text-black leading-snug">
-            <li>
-              Analyzed sunspot morphodynamics by tracking temporal area evolution of the umbra using <strong>SDO/HMI</strong> continuum intensity images and quantifying total emitted energy/intensity in <strong>Mg II h</strong> using <strong>Aditya-L1 SUIT</strong> data.
-            </li>
-            <li>
-              Cropped <strong>FITS</strong> data to isolated regions of interest (ROI) and applied pixel intensity thresholding to map umbral, penumbral, and plage features.
-            </li>
-            <li>
-              Converted pixel counts to physical surface area based on spatial resolutions and integrated total intensity counts to evaluate convective suppression dynamics over time.
-            </li>
+          <ul class="retro-list">
+            <li>Analyzed sunspot morphodynamics by tracking temporal umbral area evolution using <strong>SDO/HMI</strong> continuum intensity images and quantifying emitted Mg II h energy using <strong>Aditya-L1 SUIT</strong> data.</li>
+            <li>Cropped FITS data to isolated regions of interest (ROI) and applied pixel intensity thresholding to map umbral, penumbral, and plage features.</li>
+            <li>Converted pixel counts to physical surface areas using instrument spatial resolutions and integrated intensity counts to evaluate convective suppression dynamics over time.</li>
           </ul>
-          <div class="flex flex-wrap gap-1.5 pt-1">
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Python</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Astropy</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">FITS</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">SDO/HMI</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Aditya-L1 SUIT</span>
+          <div class="tag-row">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">Astropy (FITS/WCS)</span>
+            <span class="skill-chip">NumPy</span>
+            <span class="skill-chip">Matplotlib</span>
+            <span class="skill-chip">Aditya-L1 SUIT</span>
+            <span class="skill-chip">SDO/HMI</span>
           </div>
         </div>
 
         <!-- Project 2 -->
-        <div class="win-bevel-in p-4 bg-white space-y-3">
-          <div class="bg-black text-[#ffb000] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2">
-            <span class="font-pixel-title text-[10px]">PROJECT_02 // STELLAR_ASTROMETRY</span>
-            <span class="text-sm">GAIA SPACE MISSION</span>
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Cosmic Distance Scale Analysis using Gaia Space Mission Data</span>
+            <span class="retro-badge retro-badge-green">Project Contributor</span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-[#000080]">
-            Cosmic Distance Scale Analysis using Gaia Space Mission Data
-          </h3>
-          <ul class="list-disc pl-5 space-y-1.5 text-lg text-black leading-snug">
-            <li>
-              Wrote <strong>ADQL</strong> (SQL-based) queries to filter and extract high-accuracy stellar parameters from the <strong>Gaia</strong> archive.
-            </li>
-            <li>
-              Implemented <strong>Lomb-Scargle Periodograms</strong> to detect and verify pulsation periods in variable Cepheid stars.
-            </li>
-            <li>
-              Calculated cosmic distance scale parameters based on astronomical observational data.
-            </li>
+          <ul class="retro-list">
+            <li>Authored <strong>ADQL</strong> (SQL-based) queries to filter and extract high-precision astrometric and photometric stellar parameters from the ESA Gaia archive.</li>
+            <li>Implemented <strong>Lomb-Scargle Periodograms</strong> to detect and verify pulsation periods in variable Cepheid stars.</li>
+            <li>Calibrated period-luminosity relations to compute cosmic distance scale parameters from observational data.</li>
           </ul>
-          <div class="flex flex-wrap gap-1.5 pt-1">
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">ADQL</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Gaia Archive</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Lomb-Scargle</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">Astroquery</span>
-            <span class="win-bevel-out px-2 py-0.5 text-sm font-bold">TOPCAT</span>
+          <div class="tag-row">
+            <span class="skill-chip">ADQL</span>
+            <span class="skill-chip">Astroquery</span>
+            <span class="skill-chip">Lomb-Scargle</span>
+            <span class="skill-chip">TOPCAT</span>
+            <span class="skill-chip">Python</span>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <a class="retro-btn retro-btn-primary" href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer">
+            🐙 View Repositories on github.com/sanjaysureshv
+          </a>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>2 Research Pipelines Loaded</span>
+        <span>FITS / ADQL</span>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         WINDOW 4: SKILLS.SYS
+         ======================================================================= -->
+    <section id="win-skills" class="os-window" style="top: 84px; left: 260px; width: 550px;" data-title="SKILLS.SYS">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>⚙️</span>
+          <span class="window-title-text">SKILLS.SYS — System Capabilities</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-skills" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-skills" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-skills" title="Close">X</button>
+        </div>
+      </div>
+      <div class="window-body bevel-in">
+        <div class="pixel-h1">TECHNICAL &amp; LABORATORY STACK</div>
+
+        <div class="pixel-h2">PROGRAMMING LANGUAGES</div>
+        <div class="tag-row">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">C++</span>
+          <span class="skill-chip">ADQL (SQL-based)</span>
+        </div>
+
+        <div class="pixel-h2">DATA MANIPULATION &amp; NUMERICAL MATH</div>
+        <div class="tag-row">
+          <span class="skill-chip">NumPy</span>
+          <span class="skill-chip">Pandas</span>
+          <span class="skill-chip">Numerical Methods (ODEs &amp; Vector Calculus)</span>
+        </div>
+
+        <div class="pixel-h2">ASTROPHYSICS &amp; SIGNAL PROCESSING</div>
+        <div class="tag-row">
+          <span class="skill-chip">Astropy (FITS, WCS, Constants)</span>
+          <span class="skill-chip">Astroquery (Gaia, VizieR, SIMBAD)</span>
+          <span class="skill-chip">TOPCAT</span>
+          <span class="skill-chip">Lomb-Scargle Periodograms</span>
+        </div>
+
+        <div class="pixel-h2">VISUALIZATION &amp; SCIENTIFIC SOFTWARE</div>
+        <div class="tag-row">
+          <span class="skill-chip">Matplotlib</span>
+          <span class="skill-chip">ImageJ</span>
+          <span class="skill-chip">OriginPro</span>
+          <span class="skill-chip">SpectraSuite</span>
+          <span class="skill-chip">CorelDRAW</span>
+          <span class="skill-chip">Blender</span>
+        </div>
+
+        <div class="pixel-h2">LABORATORY &amp; EXPERIMENTAL OPTICS</div>
+        <div class="tag-row">
+          <span class="skill-chip">Laser Diffraction Setups</span>
+          <span class="skill-chip">Single-Slit Analysis</span>
+          <span class="skill-chip">Laser-Induced Breakdown Spectroscopy (LIBS)</span>
+          <span class="skill-chip">Ti:Sapphire Femtosecond Laser Systems</span>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>All drivers loaded successfully</span>
+        <span>SYS OK</span>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         WINDOW 5: EDUCATION.LOG
+         ======================================================================= -->
+    <section id="win-education" class="os-window" style="top: 100px; left: 210px; width: 540px;" data-title="EDUCATION.LOG">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>🎓</span>
+          <span class="window-title-text">EDUCATION.LOG — Academic Record</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-education" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-education" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-education" title="Close">X</button>
+        </div>
+      </div>
+      <div class="window-body bevel-in">
+        <div class="pixel-h1">ACADEMIC QUALIFICATIONS</div>
+
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">B.Sc. Physics (Honours with Research)</span>
+            <span class="retro-badge">2024 – Present (Exp. 2028)</span>
+          </div>
+          <div><strong>University College, Thiruvananthapuram</strong> · Four Year Undergraduate Programme (FYUGP)</div>
+          <div style="margin-top:4px;">Currently in <strong>5th Semester</strong> | Coursework: Physics, Chemistry, Mathematics &amp; Astrophysics</div>
+          <div class="tag-row" style="margin-top:8px;">
+            <span class="skill-chip">Sem 1 SGPA: <strong>7.43</strong></span>
+            <span class="skill-chip">Sem 2 SGPA: <strong>8.48</strong></span>
+            <span class="skill-chip">Sem 3 SGPA: <strong>8.50</strong></span>
+            <span class="skill-chip">Sem 4 SGPA: <strong>8.14</strong></span>
+          </div>
+        </div>
+
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">Higher Secondary (Class 12) — Science</span>
+            <span class="retro-badge retro-badge-green">94.8% (2024)</span>
+          </div>
+          <div>Govt. HSS Pookkottumpadam, Malappuram (Kerala State Board)</div>
+        </div>
+
+        <div class="retro-card">
+          <div class="retro-card-header">
+            <span class="retro-card-title">ICSE (Class 10)</span>
+            <span class="retro-badge">80.0% (2022)</span>
+          </div>
+          <div>Mary Matha English Medium School, Pookkottumpadam (CISCE)</div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>3 Academic Records Verified</span>
+        <span>LOG</span>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         WINDOW 6: CONTACT.BAT + INTERACTIVE MS-DOS TERMINAL
+         ======================================================================= -->
+    <section id="win-contact" class="os-window" style="top: 60px; left: 170px; width: 560px;" data-title="CONTACT.BAT">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>💻</span>
+          <span class="window-title-text">C:\WINDOWS\system32\cmd.exe — CONTACT.BAT</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-contact" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-maximize="win-contact" title="Maximize">□</button>
+          <button class="win-ctrl-btn" data-close="win-contact" title="Close">X</button>
+        </div>
+      </div>
+      <div class="window-body bevel-in">
+        <div class="pixel-h1">CONNECT WITH SANJAY SURESH V.</div>
+
+        <div class="retro-card">
+          <p><strong>Email:</strong> sanjaysureshv123@gmail.com</p>
+          <p><strong>Phone:</strong> +91 70341770623</p>
+          <p><strong>Location:</strong> Vellenghat House, Chelode, Mannathipoyil PO, Malappuram 679332, Kerala</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+            <button class="retro-btn retro-btn-gold" id="copy-email-btn">📋 Copy Email</button>
+            <a class="retro-btn retro-btn-primary" href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+            <a class="retro-btn" href="https://www.linkedin.com/in/sanjaysureshv" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+          </div>
+        </div>
+
+        <!-- Interactive MS-DOS Command Prompt -->
+        <div class="dos-terminal" id="dos-terminal">
+          <div class="dos-output" id="dos-output">Microsoft(R) Windows 95 [Version 4.00.950]
+Type <strong>help</strong> for commands (whoami, github, skills, projects, games, clear).
+</div>
+          <div class="dos-input-line">
+            <span>C:\SANJAY&gt;</span>
+            <input type="text" id="dos-input" class="dos-input" autocomplete="off" spellcheck="false" placeholder="type 'help'..." aria-label="MS-DOS Command Input" />
           </div>
         </div>
       </div>
-
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>2 Executable Research Modules</span>
-        <span>FITS / ADQL Engine Active</span>
+      <div class="window-statusbar">
+        <span>Interactive Shell Ready</span>
+        <span>CMD.EXE</span>
       </div>
-    </article>
+    </section>
 
-    <!-- ===================================================================
-         WINDOW 4: SKILLS.SYS (TECHNICAL SKILLS & LAB HARDWARE)
-         =================================================================== -->
-    <article
-      id="win-skills"
-      data-title="SKILLS.SYS"
-      style="top: 120px; left: 300px; width: 650px; z-index: 20;"
-      class="os-window hidden win-bevel-out flex-col shadow-2xl"
-      onmousedown="focusWindow('win-skills')"
-    >
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-skills')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-green-400 border border-black shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">SKILLS.SYS — System Diagnostics &amp; Lab Drivers</span>
+    <!-- =======================================================================
+         GAME WINDOW 1: ASTRO_INVADERS.EXE (Solar Flare Defense Arcade)
+         ======================================================================= -->
+    <section id="win-game-invaders" class="os-window" style="top: 30px; left: 240px; width: 420px;" data-title="INVADERS.EXE">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>👾</span>
+          <span class="window-title-text">ASTRO_INVADERS.EXE — Solar Defense</span>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-skills')" aria-label="Minimize SKILLS.SYS" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-skills')" aria-label="Maximize SKILLS.SYS" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-skills')" aria-label="Close SKILLS.SYS" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-game-invaders" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-close="win-game-invaders" title="Close">X</button>
         </div>
       </div>
-
-      <div class="p-4 sm:p-5 overflow-y-auto win-scroll max-h-[72vh] space-y-4 selectable-text">
-        <!-- Diagnostic Header -->
-        <div class="bg-black text-[#33ff33] p-3 border-2 border-[#808080] flex flex-wrap justify-between items-center gap-2">
-          <span class="font-pixel-title text-[10px]">HARDWARE &amp; SOFTWARE DRIVERS: LOADED</span>
-          <span class="text-base">STATUS: 100% OPERATIONAL</span>
+      <div class="game-container">
+        <div class="game-hud">
+          <span>SCORE:<span id="inv-score">0</span></span>
+          <span>BEST:<span id="inv-best">0</span></span>
+          <span>LIVES:<span id="inv-lives">3</span></span>
         </div>
+        <canvas id="canvas-invaders" class="game-canvas" width="360" height="320"></canvas>
+        <div class="game-controls-bar">
+          <button class="arcade-btn" id="inv-left">◀ LEFT</button>
+          <button class="arcade-btn arcade-btn-fire" id="inv-fire">🔥 LASER</button>
+          <button class="arcade-btn" id="inv-right">RIGHT ▶</button>
+          <button class="arcade-btn" id="inv-restart">↻ RESET</button>
+        </div>
+        <div style="font-size:14px; color:#ccc;">Keys: Arrow Left/Right + Spacebar | Defend Aditya-L1!</div>
+      </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-          <!-- Module 1: Programming Languages -->
-          <div class="win-bevel-in p-3.5 bg-white space-y-2">
-            <div class="flex justify-between items-center">
-              <h3 class="font-pixel-title text-[10px] text-[#000080]">01. PROGRAMMING_LANGUAGES</h3>
-              <span class="text-xs font-bold text-green-700">[ACTIVE]</span>
-            </div>
-            <div class="pixel-bar-track"><div class="pixel-bar-fill" style="width: 92%;"></div></div>
-            <p class="text-lg leading-snug pt-1">
-              <strong>Python</strong>, <strong>C++</strong>, <strong>ADQL</strong> (SQL-based astronomical queries)
-            </p>
-          </div>
-
-          <!-- Module 2: Astrophysics & Signal Tools -->
-          <div class="win-bevel-in p-3.5 bg-white space-y-2">
-            <div class="flex justify-between items-center">
-              <h3 class="font-pixel-title text-[10px] text-[#000080]">02. ASTROPHYSICS_&_SIGNAL</h3>
-              <span class="text-xs font-bold text-green-700">[ACTIVE]</span>
-            </div>
-            <div class="pixel-bar-track"><div class="pixel-bar-fill" style="width: 95%;"></div></div>
-            <p class="text-lg leading-snug pt-1">
-              <strong>Astropy</strong> (FITS files, WCS, physical constants), <strong>Astroquery</strong> (Gaia, VizieR, SIMBAD programmatic access), <strong>TOPCAT</strong>, <strong>Lomb-Scargle Periodograms</strong> (time-series &amp; variable star periodicity)
-            </p>
-          </div>
-
-          <!-- Module 3: Data & Scientific Software -->
-          <div class="win-bevel-in p-3.5 bg-white space-y-2">
-            <div class="flex justify-between items-center">
-              <h3 class="font-pixel-title text-[10px] text-[#000080]">03. DATA_&_SCI_SOFTWARE</h3>
-              <span class="text-xs font-bold text-green-700">[ACTIVE]</span>
-            </div>
-            <div class="pixel-bar-track"><div class="pixel-bar-fill" style="width: 90%;"></div></div>
-            <p class="text-lg leading-snug pt-1">
-              <strong>NumPy</strong>, <strong>Pandas</strong>, <strong>Numerical Methods</strong> (Differential Equations, Vector Calculus algorithms), <strong>Matplotlib</strong>, <strong>ImageJ</strong> (image analysis &amp; spatial calibration), <strong>OriginPro</strong> (peak detection &amp; graphing), <strong>SpectraSuite</strong>, <strong>CorelDRAW</strong>, <strong>Blender</strong>
-            </p>
-          </div>
-
-          <!-- Module 4: Laboratory & Optics -->
-          <div class="win-bevel-in p-3.5 bg-white space-y-2">
-            <div class="flex justify-between items-center">
-              <h3 class="font-pixel-title text-[10px] text-[#800000]">04. LAB_&_OPTICS_HARDWARE</h3>
-              <span class="text-xs font-bold text-green-700">[CALIBRATED]</span>
-            </div>
-            <div class="pixel-bar-track"><div class="pixel-bar-fill" style="width: 88%;"></div></div>
-            <p class="text-lg leading-snug pt-1">
-              <strong>Laser diffraction setups</strong>, <strong>Single-slit analysis</strong>, <strong>Laser-Induced Breakdown Spectroscopy (LIBS)</strong>, <strong>Ti:Sapphire femtosecond laser systems</strong>
-            </p>
-          </div>
+    <!-- =======================================================================
+         GAME WINDOW 2: PHOTON_SNAKE.EXE (Optical Bench Snake)
+         ======================================================================= -->
+    <section id="win-game-snake" class="os-window" style="top: 40px; left: 280px; width: 400px;" data-title="SNAKE.EXE">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>🐍</span>
+          <span class="window-title-text">PHOTON_SNAKE.EXE — Optical Bench</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-game-snake" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-close="win-game-snake" title="Close">X</button>
         </div>
       </div>
-
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>4 Subsystems Verified</span>
-        <span>IRQ 07: Optics &amp; Astro Bus</span>
+      <div class="game-container">
+        <div class="game-hud">
+          <span>PHOTONS:<span id="snk-score">0</span></span>
+          <span>BEST:<span id="snk-best">0</span></span>
+          <button class="arcade-btn" id="snk-restart" style="padding:3px 7px;">↻ NEW</button>
+        </div>
+        <canvas id="canvas-snake" class="game-canvas" width="340" height="300"></canvas>
+        <div class="game-controls-bar">
+          <button class="arcade-btn" data-snk-dir="LEFT">◀</button>
+          <button class="arcade-btn" data-snk-dir="UP">▲</button>
+          <button class="arcade-btn" data-snk-dir="DOWN">▼</button>
+          <button class="arcade-btn" data-snk-dir="RIGHT">▶</button>
+        </div>
+        <div style="font-size:14px; color:#ccc;">Keys: Arrow Keys or WASD | Collect golden photons!</div>
       </div>
-    </article>
+    </section>
 
-    <!-- ===================================================================
-         WINDOW 5: EDUCATION.LOG (ACADEMIC RECORD & SGPA)
-         =================================================================== -->
-    <article
-      id="win-education"
-      data-title="EDUCATION.LOG"
-      style="top: 140px; left: 220px; width: 640px; z-index: 20;"
-      class="os-window hidden win-bevel-out flex-col shadow-2xl"
-      onmousedown="focusWindow('win-education')"
-    >
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-education')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-white border border-black shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">EDUCATION.LOG — Notepad</span>
+    <!-- =======================================================================
+         GAME WINDOW 3: QUANTUM_SWEEPER.EXE (Classic 9x9 Minesweeper)
+         ======================================================================= -->
+    <section id="win-game-mines" class="os-window" style="top: 50px; left: 320px; width: 330px;" data-title="SWEEPER.EXE">
+      <div class="window-titlebar">
+        <div class="window-title-left">
+          <span>💣</span>
+          <span class="window-title-text">QUANTUM_SWEEPER.EXE</span>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-education')" aria-label="Minimize EDUCATION.LOG" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-education')" aria-label="Maximize EDUCATION.LOG" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-education')" aria-label="Close EDUCATION.LOG" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
-        </div>
-      </div>
-
-      <div class="p-4 sm:p-5 overflow-y-auto win-scroll max-h-[72vh] space-y-4 selectable-text">
-        <!-- Degree 1 -->
-        <div class="win-bevel-in p-4 bg-white space-y-2.5">
-          <div class="flex flex-wrap justify-between items-center gap-2 border-b border-dashed border-slate-400 pb-1.5">
-            <span class="font-pixel-title text-[10px] text-[#000080]">2024 – PRESENT (EXPECTED 2028)</span>
-            <span class="bg-[#008080] text-white px-2 py-0.5 text-sm font-bold">FYUGP · 5th Semester</span>
-          </div>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">
-            B.Sc. Physics (Honours with Research)
-          </h3>
-          <p class="text-lg font-bold text-slate-800">
-            University College, Thiruvananthapuram
-          </p>
-          <p class="text-lg text-black">
-            <strong>Key Coursework:</strong> Physics, Chemistry, Mathematics &amp; Astrophysics
-          </p>
-
-          <!-- SGPA Retro Scoreboard -->
-          <div class="bg-[#efefef] border-2 border-[#808080] p-2.5">
-            <p class="font-pixel-title text-[9px] text-[#000080] mb-2">ACADEMIC PERFORMANCE (SGPA):</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
-              <div class="win-bevel-out p-1.5">
-                <div class="text-xs font-bold text-slate-700">SEM 1</div>
-                <div class="font-pixel-title text-xs text-black mt-1">7.43</div>
-              </div>
-              <div class="win-bevel-out p-1.5">
-                <div class="text-xs font-bold text-slate-700">SEM 2</div>
-                <div class="font-pixel-title text-xs text-black mt-1">8.48</div>
-              </div>
-              <div class="win-bevel-out p-1.5">
-                <div class="text-xs font-bold text-slate-700">SEM 3</div>
-                <div class="font-pixel-title text-xs text-[#000080] mt-1">8.50</div>
-              </div>
-              <div class="win-bevel-out p-1.5">
-                <div class="text-xs font-bold text-slate-700">SEM 4</div>
-                <div class="font-pixel-title text-xs text-black mt-1">8.14</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Class 12 -->
-        <div class="win-bevel-in p-4 bg-white space-y-1.5">
-          <div class="flex flex-wrap justify-between items-center gap-2">
-            <span class="font-pixel-title text-[10px] text-[#000080]">COMPLETED 2024</span>
-            <span class="bg-[#000080] text-yellow-300 px-2 py-0.5 font-pixel-title text-[9px]">RESULT: 94.8%</span>
-          </div>
-          <h3 class="text-xl font-bold text-black">Higher Secondary (Class 12) — Science</h3>
-          <p class="text-lg text-slate-800">Govt. HSS Pookkottumpadam, Malappuram (Kerala State Board)</p>
-        </div>
-
-        <!-- Class 10 -->
-        <div class="win-bevel-in p-4 bg-white space-y-1.5">
-          <div class="flex flex-wrap justify-between items-center gap-2">
-            <span class="font-pixel-title text-[10px] text-[#000080]">COMPLETED 2022</span>
-            <span class="bg-[#808080] text-white px-2 py-0.5 font-pixel-title text-[9px]">RESULT: 80%</span>
-          </div>
-          <h3 class="text-xl font-bold text-black">ICSE (Class 10)</h3>
-          <p class="text-lg text-slate-800">Mary Matha English Medium School, Pookkottumpadam (CISCE)</p>
+        <div class="window-controls">
+          <button class="win-ctrl-btn" data-minimize="win-game-mines" title="Minimize">_</button>
+          <button class="win-ctrl-btn" data-close="win-game-mines" title="Close">X</button>
         </div>
       </div>
-
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>Ln 1, Col 1</span>
-        <span>UTF-8 | EDUCATION.LOG</span>
-      </div>
-    </article>
-
-    <!-- ===================================================================
-         WINDOW 6: CONTACT.BAT (COMMAND PROMPT TERMINAL & DIRECT CONTACT)
-         =================================================================== -->
-    <article
-      id="win-contact"
-      data-title="CONTACT.BAT"
-      style="top: 80px; left: 280px; width: 640px; z-index: 20;"
-      class="os-window hidden win-bevel-out flex-col shadow-2xl"
-      onmousedown="focusWindow('win-contact')"
-    >
-      <div class="win-titlebar px-2 py-1.5 flex items-center justify-between gap-2" onmousedown="startDrag(event, 'win-contact')">
-        <div class="flex items-center gap-2 truncate">
-          <span class="inline-block w-3 h-3 bg-black border border-white shrink-0"></span>
-          <span class="font-pixel-title text-[10px] sm:text-xs truncate">MS-DOS Prompt — CONTACT.BAT</span>
+      <div class="game-container" style="background:#c0c0c0; color:#000;">
+        <div class="game-hud" style="background:#111;">
+          <span>MINES:<span id="ms-mines-left">10</span></span>
+          <button class="arcade-btn" id="ms-reset-btn" style="padding:3px 8px;">🙂</button>
+          <span>TIME:<span id="ms-timer">000</span></span>
         </div>
-        <div class="flex items-center gap-1 shrink-0" onmousedown="event.stopPropagation()">
-          <button type="button" onclick="minimizeWindow('win-contact')" aria-label="Minimize CONTACT.BAT" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">_</button>
-          <button type="button" onclick="toggleMaximize('win-contact')" aria-label="Maximize CONTACT.BAT" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center">□</button>
-          <button type="button" onclick="closeWindow('win-contact')" aria-label="Close CONTACT.BAT" class="win-btn w-6 h-6 font-pixel-title text-[10px] flex items-center justify-center font-bold">X</button>
+        <div id="ms-board" class="ms-board" role="grid" aria-label="Quantum Sweeper Grid"></div>
+        <div class="game-controls-bar">
+          <button class="retro-btn" id="ms-flag-mode-btn">🚩 Flag Mode: OFF</button>
         </div>
+        <div style="font-size:14px; color:#222; text-align:center;">Left-click to probe · Right-click or Flag Mode to mark</div>
       </div>
-
-      <div class="p-3 sm:p-4 space-y-3">
-        <!-- Direct Contact Action Bar -->
-        <div class="win-bevel-in p-3 bg-[#f0f0f0] space-y-2 selectable-text text-base sm:text-lg">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <span class="font-bold text-[#000080]">EMAIL:</span>
-              <span>sanjaysureshv123@gmail.com</span>
-            </div>
-            <div class="flex gap-2">
-              <button type="button" onclick="copyEmailAddress()" class="win-btn px-2.5 py-0.5 text-base font-bold">
-                📋 Copy Email
-              </button>
-              <a href="mailto:sanjaysureshv123@gmail.com" class="win-btn px-2.5 py-0.5 text-base font-bold inline-block">
-                ✉️ Mailto
-              </a>
-              <a href="https://www.linkedin.com/in/sanjaysureshv" target="_blank" rel="noopener noreferrer" class="win-btn px-2.5 py-0.5 text-base font-bold inline-block">
-                🔗 LinkedIn
-              </a>
-            </div>
-          </div>
-          <div class="text-base border-t border-slate-300 pt-1.5">
-            <p><strong>PHONE:</strong> +91 70341770623</p>
-            <p><strong>ADDRESS:</strong> Vellenghat house, Chelode, Mannathipoyil PO, Malappuram 679332</p>
-          </div>
-        </div>
-
-        <!-- Simulated Interactive MS-DOS Terminal -->
-        <div
-          id="terminal-screen"
-          onclick="document.getElementById('terminal-input').focus()"
-          class="win-bevel-in bg-black text-[#33ff33] p-3 h-64 overflow-y-auto win-scroll font-pixel-body text-lg leading-snug selectable-text cursor-text"
-        >
-          <div id="terminal-output" class="space-y-1">
-            <p class="text-yellow-300">SANJAY_OS [Version 98.5.2026]</p>
-            <p>(C) Copyright Sanjay Suresh V. All rights reserved.</p>
-            <p class="text-cyan-300">Type <span class="text-white font-bold">help</span> and press Enter for available commands.</p>
-          </div>
-
-          <!-- Command Input Line -->
-          <form id="terminal-form" class="flex items-center gap-2 mt-2">
-            <span class="text-yellow-300 shrink-0">C:\SANJAY&gt;</span>
-            <input
-              id="terminal-input"
-              type="text"
-              autocomplete="off"
-              spellcheck="false"
-              aria-label="Terminal Command Input"
-              placeholder="type 'help'..."
-              class="w-full bg-transparent text-[#33ff33] focus:outline-none font-pixel-body text-lg caret-[#33ff33]"
-            />
-          </form>
-        </div>
-      </div>
-
-      <div class="px-2 py-1 bg-[#c0c0c0] border-t border-[#808080] flex justify-between text-sm text-black">
-        <span>Commands: help, about, internships, projects, skills, education, contact, clear</span>
-        <span>COM1</span>
-      </div>
-    </article>
-
+    </section>
   </main>
 
-  <!-- =====================================================================
-       CLASSIC 90s START MENU POPUP
-       ===================================================================== -->
-  <div
-    id="start-menu"
-    class="hidden fixed bottom-[44px] left-1 z-[9000] w-72 win-bevel-out flex shadow-2xl"
-    role="menu"
-  >
-    <!-- Vertical Windows 98 Style Side Banner -->
-    <div class="w-8 bg-gradient-to-t from-[#000080] to-[#1084d0] flex items-end justify-center pb-3 shrink-0">
-      <span class="font-pixel-title text-[10px] text-white tracking-widest" style="writing-mode: vertical-rl; transform: rotate(180deg);">
-        SANJAY<span class="text-yellow-300">98</span>
-      </span>
+  <!-- =========================================================================
+       START MENU POPUP
+       ========================================================================= -->
+  <nav id="start-menu" aria-label="Start Menu">
+    <div class="start-sidebar">SANJAY_OS 95</div>
+    <div class="start-items">
+      <button class="start-item" data-open="win-readme">📄 <span>README.EXE</span></button>
+      <button class="start-item" data-open="win-internships">📁 <span>Internships &amp; Outreach</span></button>
+      <button class="start-item" data-open="win-projects">🔭 <span>Astrophysics Projects</span></button>
+      <button class="start-item" data-open="win-skills">⚙️ <span>Technical Skills</span></button>
+      <button class="start-item" data-open="win-education">🎓 <span>Education Record</span></button>
+      <button class="start-item" data-open="win-contact">💻 <span>Contact &amp; DOS Shell</span></button>
+      <div class="start-divider"></div>
+      <button class="start-item" data-open="win-game-invaders">👾 <span>Game: Astro Invaders</span></button>
+      <button class="start-item" data-open="win-game-snake">🐍 <span>Game: Photon Snake</span></button>
+      <button class="start-item" data-open="win-game-mines">💣 <span>Game: Quantum Sweeper</span></button>
+      <div class="start-divider"></div>
+      <a class="start-item" href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer">🐙 <span>GitHub (@sanjaysureshv)</span></a>
+      <a class="start-item" href="https://www.linkedin.com/in/sanjaysureshv" target="_blank" rel="noopener noreferrer">💼 <span>LinkedIn Profile</span></a>
+      <button class="start-item" id="start-crt-btn">🖥️ <span>Toggle CRT Scanlines</span></button>
     </div>
+  </nav>
 
-    <!-- Menu Items -->
-    <div class="flex-1 py-1 bg-[#c0c0c0] flex flex-col text-lg">
-      <button type="button" onclick="openWindow('win-readme'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>🖥️</span> <span><strong>README.EXE</strong> (Profile)</span>
-      </button>
-      <button type="button" onclick="openWindow('win-internships'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>📂</span> <span><strong>INTERNSHIPS.DIR</strong></span>
-      </button>
-      <button type="button" onclick="openWindow('win-projects'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>🔭</span> <span><strong>PROJECTS.EXE</strong></span>
-      </button>
-      <button type="button" onclick="openWindow('win-skills'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>⚙️</span> <span><strong>SKILLS.SYS</strong></span>
-      </button>
-      <button type="button" onclick="openWindow('win-education'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>🎓</span> <span><strong>EDUCATION.LOG</strong></span>
-      </button>
-      <button type="button" onclick="openWindow('win-contact'); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>💻</span> <span><strong>CONTACT.BAT</strong></span>
-      </button>
+  <!-- =========================================================================
+       BOTTOM WIN95 TASKBAR
+       ========================================================================= -->
+  <footer id="taskbar">
+    <button id="start-btn" aria-expanded="false" aria-controls="start-menu">
+      <svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <rect x="1" y="1" width="6" height="6" fill="#ff3b30"/>
+        <rect x="9" y="1" width="6" height="6" fill="#34c759"/>
+        <rect x="1" y="9" width="6" height="6" fill="#007aff"/>
+        <rect x="9" y="9" width="6" height="6" fill="#ffd700"/>
+      </svg>
+      <span>Start</span>
+    </button>
 
-      <div class="my-1 border-t border-[#808080] border-b border-white"></div>
+    <div id="taskbar-tasks" aria-label="Open Windows"></div>
 
-      <button type="button" onclick="toggleCRT(); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>📺</span> <span>Toggle CRT Scanlines</span>
-      </button>
-      <button type="button" onclick="openAllWindows(); closeStartMenu();" class="px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white flex items-center gap-2.5">
-        <span>🪟</span> <span>Cascade All Windows</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- =====================================================================
-       BOTTOM TASKBAR (Start Button + Open Window Tabs + System Tray Clock)
-       ===================================================================== -->
-  <footer class="fixed bottom-0 left-0 right-0 h-[44px] z-[8500] win-bevel-out px-1.5 py-1 flex items-center justify-between gap-2">
-    <div class="flex items-center gap-1.5 overflow-x-auto flex-1">
-      <!-- Start Button -->
-      <button
-        id="start-btn"
-        type="button"
-        onclick="toggleStartMenu(event)"
-        class="win-btn px-2.5 py-1 flex items-center gap-1.5 shrink-0 font-pixel-title text-[10px] sm:text-xs font-bold"
-      >
-        <svg class="w-4 h-4" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <rect x="1" y="1" width="6" height="6" fill="#ff0000"/>
-          <rect x="9" y="1" width="6" height="6" fill="#00aa00"/>
-          <rect x="1" y="9" width="6" height="6" fill="#0000ff"/>
-          <rect x="9" y="9" width="6" height="6" fill="#ffcc00"/>
-        </svg>
-        <span>Start</span>
-      </button>
-
-      <div class="h-6 w-[2px] bg-[#808080] border-r border-white shrink-0"></div>
-
-      <!-- Dynamic Open Window Taskbar Tabs -->
-      <div id="taskbar-tabs" class="flex items-center gap-1.5 overflow-x-auto"></div>
-    </div>
-
-    <!-- System Tray & Live Clock -->
-    <div class="win-bevel-in px-2.5 py-0.5 bg-[#c0c0c0] flex items-center gap-2 shrink-0 text-base sm:text-lg">
-      <button type="button" onclick="toggleCRT()" title="Toggle CRT Scanlines" class="text-sm leading-none cursor-pointer">📺</button>
-      <span id="taskbar-clock" class="font-bold text-black">12:00 PM</span>
+    <div id="system-tray">
+      <a href="https://github.com/sanjaysureshv" target="_blank" rel="noopener noreferrer" title="GitHub: sanjaysureshv" style="color:#000; text-decoration:none;">🐙</a>
+      <span id="tray-clock">12:00 PM</span>
     </div>
   </footer>
 
-  <!-- Retro System Toast Notification -->
-  <div
-    id="os-toast"
-    role="status"
-    aria-live="polite"
-    class="hidden fixed top-4 right-4 z-[9500] win-bevel-out px-3.5 py-2 bg-[#ffffcc] text-black shadow-xl flex items-center gap-2 text-lg"
-  >
-    <span>💾</span>
-    <span id="os-toast-text">Notification</span>
-  </div>
-
-  <!-- =====================================================================
-       OS INTERACTIVITY SCRIPT (Window Manager, Dragging, Terminal, Clock)
-       ===================================================================== -->
+  <!-- =========================================================================
+       JAVASCRIPT: WINDOW MANAGER, TERMINAL & 3 PLAYABLE RETRO GAMES
+       ========================================================================= -->
   <script>
-    let highestZIndex = 30;
-    const windowIds = [
-      'win-readme',
-      'win-internships',
-      'win-projects',
-      'win-skills',
-      'win-education',
-      'win-contact'
-    ];
+    (function () {
+      let topZ = 100;
+      const windows = Array.from(document.querySelectorAll('.os-window'));
+      const taskbarTasks = document.getElementById('taskbar-tasks');
+      const startBtn = document.getElementById('start-btn');
+      const startMenu = document.getElementById('start-menu');
+      const crtOverlay = document.getElementById('crt-overlay');
+      const toastEl = document.getElementById('retro-toast');
+      let toastTimer = null;
 
-    // -----------------------------------------------------------------------
-    // 1. WINDOW MANAGEMENT (Open, Close, Minimize, Maximize, Focus, Taskbar)
-    // -----------------------------------------------------------------------
-    function focusWindow(winId) {
-      highestZIndex += 1;
-      windowIds.forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        if (id === winId) {
-          el.style.zIndex = highestZIndex;
-          el.classList.remove('inactive');
-        } else {
-          el.classList.add('inactive');
-        }
-      });
-      renderTaskbarTabs(winId);
-    }
-
-    function openWindow(winId) {
-      const winEl = document.getElementById(winId);
-      if (!winEl) return;
-      winEl.classList.remove('hidden');
-      winEl.classList.add('flex');
-      winEl.dataset.minimized = 'false';
-      focusWindow(winId);
-
-      // On mobile screens, smoothly scroll the opened window into view
-      if (window.innerWidth < 768) {
-        winEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.style.display = 'block';
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toastEl.style.display = 'none';
+        }, 2400);
       }
-    }
 
-    function closeWindow(winId) {
-      const winEl = document.getElementById(winId);
-      if (!winEl) return;
-      winEl.classList.add('hidden');
-      winEl.classList.remove('flex');
-      winEl.dataset.minimized = 'false';
-      renderTaskbarTabs();
-    }
-
-    function minimizeWindow(winId) {
-      const winEl = document.getElementById(winId);
-      if (!winEl) return;
-      winEl.classList.add('hidden');
-      winEl.classList.remove('flex');
-      winEl.dataset.minimized = 'true';
-      renderTaskbarTabs();
-    }
-
-    function toggleMaximize(winId) {
-      const winEl = document.getElementById(winId);
-      if (!winEl || window.innerWidth < 768) return;
-
-      if (winEl.dataset.maximized === 'true') {
-        winEl.style.top = winEl.dataset.prevTop || '40px';
-        winEl.style.left = winEl.dataset.prevLeft || '160px';
-        winEl.style.width = winEl.dataset.prevWidth || '650px';
-        winEl.style.height = 'auto';
-        winEl.dataset.maximized = 'false';
-      } else {
-        winEl.dataset.prevTop = winEl.style.top;
-        winEl.dataset.prevLeft = winEl.style.left;
-        winEl.dataset.prevWidth = winEl.style.width;
-        winEl.style.top = '4px';
-        winEl.style.left = '4px';
-        winEl.style.width = 'calc(100vw - 8px)';
-        winEl.dataset.maximized = 'true';
+      /* -----------------------------------------------------------------------
+         1. WINDOW MANAGER & TASKBAR SYNC
+         ----------------------------------------------------------------------- */
+      function bringToFront(win) {
+        windows.forEach(w => w.classList.remove('active'));
+        win.classList.add('open', 'active');
+        win.classList.remove('minimized');
+        topZ += 1;
+        win.style.zIndex = topZ;
+        renderTaskbar();
       }
-      focusWindow(winId);
-    }
 
-    function openAllWindows() {
-      let offsetTop = 20;
-      let offsetLeft = 125;
-      windowIds.forEach((id) => {
-        const winEl = document.getElementById(id);
-        if (!winEl) return;
-        winEl.classList.remove('hidden');
-        winEl.classList.add('flex');
-        winEl.dataset.minimized = 'false';
-        if (window.innerWidth >= 768) {
-          winEl.style.top = `${offsetTop}px`;
-          winEl.style.left = `${offsetLeft}px`;
-          offsetTop += 28;
-          offsetLeft += 28;
-        }
-      });
-      focusWindow('win-readme');
-    }
+      function openWindow(id) {
+        const win = document.getElementById(id);
+        if (!win) return;
+        bringToFront(win);
+        closeStartMenu();
 
-    function renderTaskbarTabs(activeId = null) {
-      const container = document.getElementById('taskbar-tabs');
-      if (!container) return;
-      container.innerHTML = '';
+        if (id === 'win-game-invaders') startInvaders();
+        if (id === 'win-game-snake') startSnake();
+        if (id === 'win-game-mines' && !msInitialized) initMinesweeper();
+      }
 
-      windowIds.forEach((id) => {
-        const winEl = document.getElementById(id);
-        if (!winEl) return;
-        const isVisible = !winEl.classList.contains('hidden');
-        const isMinimized = winEl.dataset.minimized === 'true';
+      function closeWindow(id) {
+        const win = document.getElementById(id);
+        if (!win) return;
+        win.classList.remove('open', 'active', 'minimized');
+        renderTaskbar();
+      }
 
-        if (isVisible || isMinimized) {
+      function minimizeWindow(id) {
+        const win = document.getElementById(id);
+        if (!win) return;
+        win.classList.add('minimized');
+        win.classList.remove('active');
+        renderTaskbar();
+      }
+
+      function toggleMaximize(id) {
+        const win = document.getElementById(id);
+        if (!win) return;
+        win.classList.toggle('maximized');
+        bringToFront(win);
+      }
+
+      function renderTaskbar() {
+        taskbarTasks.innerHTML = '';
+        windows.forEach(win => {
+          if (!win.classList.contains('open')) return;
           const btn = document.createElement('button');
-          btn.type = 'button';
-          const isActive = isVisible && (activeId === id || !winEl.classList.contains('inactive'));
-          btn.className = `win-btn px-2.5 py-0.5 text-base font-bold truncate max-w-[155px] ${isActive ? 'active-tab' : ''}`;
-          btn.textContent = winEl.dataset.title || id;
-          btn.onclick = () => {
-            if (isVisible && !winEl.classList.contains('inactive')) {
-              minimizeWindow(id);
+          const isActive = win.classList.contains('active') && !win.classList.contains('minimized');
+          btn.className = 'task-tab' + (isActive ? ' active-task' : '');
+          btn.textContent = win.dataset.title || 'WINDOW';
+          btn.addEventListener('click', () => {
+            if (isActive) {
+              minimizeWindow(win.id);
             } else {
-              openWindow(id);
+              bringToFront(win);
             }
-          };
-          container.appendChild(btn);
+          });
+          taskbarTasks.appendChild(btn);
+        });
+      }
+
+      // Bind all [data-open], [data-close], [data-minimize], [data-maximize]
+      document.querySelectorAll('[data-open]').forEach(el => {
+        el.addEventListener('click', () => openWindow(el.dataset.open));
+      });
+      document.querySelectorAll('[data-close]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeWindow(el.dataset.close);
+        });
+      });
+      document.querySelectorAll('[data-minimize]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          minimizeWindow(el.dataset.minimize);
+        });
+      });
+      document.querySelectorAll('[data-maximize]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleMaximize(el.dataset.maximize);
+        });
+      });
+
+      // Focus window on click & enable titlebar dragging
+      windows.forEach(win => {
+        win.addEventListener('mousedown', () => bringToFront(win));
+        const bar = win.querySelector('.window-titlebar');
+        let dragging = false, offsetX = 0, offsetY = 0;
+
+        bar.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.win-ctrl-btn') || win.classList.contains('maximized')) return;
+          dragging = true;
+          offsetX = e.clientX - win.offsetLeft;
+          offsetY = e.clientY - win.offsetTop;
+          bringToFront(win);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!dragging) return;
+          const desktop = document.getElementById('desktop');
+          const maxX = Math.max(0, desktop.clientWidth - win.offsetWidth);
+          const maxY = Math.max(0, desktop.clientHeight - 30);
+          const nextX = Math.min(Math.max(0, e.clientX - offsetX), maxX);
+          const nextY = Math.min(Math.max(0, e.clientY - offsetY), maxY);
+          win.style.left = nextX + 'px';
+          win.style.top = nextY + 'px';
+        });
+
+        window.addEventListener('mouseup', () => {
+          dragging = false;
+        });
+      });
+
+      /* -----------------------------------------------------------------------
+         2. START MENU, CLOCK & CRT SCANLINE TOGGLE
+         ----------------------------------------------------------------------- */
+      function closeStartMenu() {
+        startMenu.classList.remove('open');
+        startBtn.classList.remove('active');
+        startBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      startBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = startMenu.classList.toggle('open');
+        startBtn.classList.toggle('active', isOpen);
+        startBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!startMenu.contains(e.target) && e.target !== startBtn) {
+          closeStartMenu();
         }
       });
-    }
 
-    // -----------------------------------------------------------------------
-    // 2. DESKTOP WINDOW DRAGGING BY TITLE BAR
-    // -----------------------------------------------------------------------
-    let dragState = null;
-
-    function startDrag(e, winId) {
-      if (window.innerWidth < 768) return;
-      if (e.button !== 0) return;
-      const winEl = document.getElementById(winId);
-      if (!winEl || winEl.dataset.maximized === 'true') return;
-
-      focusWindow(winId);
-      const rect = winEl.getBoundingClientRect();
-      dragState = {
-        winEl,
-        offsetX: e.clientX - rect.left,
-        offsetY: e.clientY - rect.top
-      };
-    }
-
-    document.addEventListener('mousemove', (e) => {
-      if (!dragState) return;
-      const { winEl, offsetX, offsetY } = dragState;
-      const maxLeft = Math.max(0, window.innerWidth - 120);
-      const maxTop = Math.max(0, window.innerHeight - 84);
-      const nextLeft = Math.min(Math.max(0, e.clientX - offsetX), maxLeft);
-      const nextTop = Math.min(Math.max(0, e.clientY - offsetY), maxTop);
-      winEl.style.left = `${nextLeft}px`;
-      winEl.style.top = `${nextTop}px`;
-    });
-
-    document.addEventListener('mouseup', () => {
-      dragState = null;
-    });
-
-    // -----------------------------------------------------------------------
-    // 3. START MENU, CRT SCANLINES, CLOCK & CLIPBOARD TOAST
-    // -----------------------------------------------------------------------
-    function toggleStartMenu(e) {
-      e.stopPropagation();
-      const menu = document.getElementById('start-menu');
-      const btn = document.getElementById('start-btn');
-      if (!menu || !btn) return;
-      const isHidden = menu.classList.toggle('hidden');
-      btn.classList.toggle('active-tab', !isHidden);
-    }
-
-    function closeStartMenu() {
-      const menu = document.getElementById('start-menu');
-      const btn = document.getElementById('start-btn');
-      if (menu) menu.classList.add('hidden');
-      if (btn) btn.classList.remove('active-tab');
-    }
-
-    document.addEventListener('click', (e) => {
-      const menu = document.getElementById('start-menu');
-      const btn = document.getElementById('start-btn');
-      if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
+      function toggleCRT() {
+        const isOff = crtOverlay.classList.toggle('crt-off');
+        showToast(isOff ? 'CRT Scanlines: OFF' : 'CRT Scanlines: ON');
         closeStartMenu();
       }
-    });
+      document.getElementById('icon-crt-toggle').addEventListener('click', toggleCRT);
+      document.getElementById('start-crt-btn').addEventListener('click', toggleCRT);
 
-    function toggleCRT() {
-      const overlay = document.getElementById('crt-overlay');
-      if (!overlay) return;
-      const isHidden = overlay.classList.toggle('crt-hidden');
-      showOSToast(isHidden ? 'CRT Scanlines: OFF' : 'CRT Scanlines: ON');
-    }
-
-    let toastTimer;
-    function showOSToast(message) {
-      const toast = document.getElementById('os-toast');
-      const text = document.getElementById('os-toast-text');
-      if (!toast || !text) return;
-      text.textContent = message;
-      toast.classList.remove('hidden');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 2500);
-    }
-
-    function copyEmailAddress() {
-      const email = 'sanjaysureshv123@gmail.com';
-      const temp = document.createElement('textarea');
-      temp.value = email;
-      temp.setAttribute('readonly', '');
-      temp.style.position = 'absolute';
-      temp.style.left = '-9999px';
-      document.body.appendChild(temp);
-      temp.select();
-      try {
-        document.execCommand('copy');
-        showOSToast('Copied: sanjaysureshv123@gmail.com');
-      } catch (err) {
-        showOSToast('Email: sanjaysureshv123@gmail.com');
+      function updateClock() {
+        const now = new Date();
+        document.getElementById('tray-clock').textContent = now.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
       }
-      document.body.removeChild(temp);
-    }
+      updateClock();
+      setInterval(updateClock, 15000);
 
-    function updateTaskbarClock() {
-      const clockEl = document.getElementById('taskbar-clock');
-      if (!clockEl) return;
-      const now = new Date();
-      clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
+      /* -----------------------------------------------------------------------
+         3. CLIPBOARD COPY & INTERACTIVE MS-DOS TERMINAL
+         ----------------------------------------------------------------------- */
+      document.getElementById('copy-email-btn').addEventListener('click', () => {
+        const ta = document.createElement('textarea');
+        ta.value = 'sanjaysureshv123@gmail.com';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Copied: sanjaysureshv123@gmail.com');
+      });
 
-    // -----------------------------------------------------------------------
-    // 4. INTERACTIVE MS-DOS TERMINAL IN CONTACT.BAT
-    // -----------------------------------------------------------------------
-    function initTerminal() {
-      const form = document.getElementById('terminal-form');
-      const input = document.getElementById('terminal-input');
-      const output = document.getElementById('terminal-output');
-      const screen = document.getElementById('terminal-screen');
-      if (!form || !input || !output || !screen) return;
-
-      const responses = {
-        help: [
-          'Available commands:',
-          '  about       - Display profile summary',
-          '  internships - List CUSAT, Quantum Century & IUCAA roles',
-          '  projects    - List Solar Physics & Gaia Astrophysics projects',
-          '  skills      - Show programming, astrophysics & optics hardware',
-          '  education   - Show B.Sc. Physics FYUGP & school credentials',
-          '  contact     - Print email, phone, LinkedIn & address',
-          '  clear       - Clear terminal screen'
-        ],
-        about: [
-          'SANJAY SURESH V — B.Sc. Physics (Honours with Research), University College Thiruvananthapuram.',
-          'Focus: Computational Astrophysics, Solar Physics & Experimental Laser Spectroscopy.'
-        ],
-        internships: [
-          '[1] Research Intern — Dept. of Physics, CUSAT (Apr–May 2026): Single-slit laser diffraction & LIBS plasma spectroscopy.',
-          '[2] Science Communicator Intern — Quantum Century Science Exhibition (2026): Quantum physics outreach & demonstrations.',
-          '[3] Student Researcher — IUCAA School on Stellar & Solar Astronomy (Jan 2026): Aditya-L1 mission data protocols.'
-        ],
-        projects: [
-          '[1] Sunspot Area Evolution & Mg II h Energy Emission Analysis (SDO/HMI & Aditya-L1 SUIT FITS data).',
-          '[2] Cosmic Distance Scale Analysis using Gaia Space Mission Data (ADQL queries & Lomb-Scargle Periodograms).'
-        ],
-        skills: [
-          'Languages : Python, C++, ADQL',
-          'Astro     : Astropy, Astroquery, TOPCAT, Lomb-Scargle Periodograms',
-          'Software  : NumPy, Pandas, Matplotlib, ImageJ, OriginPro, SpectraSuite, CorelDRAW, Blender',
-          'Optics    : Laser diffraction setups, LIBS, Ti:Sapphire femtosecond laser systems'
-        ],
-        education: [
-          '2024–2028 : B.Sc. Physics (Hons. with Research), University College Trivandrum (Sem 1: 7.43 | Sem 2: 8.48 | Sem 3: 8.50 | Sem 4: 8.14)',
-          '2024      : Class 12 Science, Govt. HSS Pookkottumpadam (94.8%)',
-          '2022      : ICSE Class 10, Mary Matha English Medium School (80%)'
-        ],
-        contact: [
-          'Email    : sanjaysureshv123@gmail.com',
-          'LinkedIn : https://www.linkedin.com/in/sanjaysureshv',
-          'Phone    : +91 70341770623',
-          'Address  : Vellenghat house, Chelode, Mannathipoyil PO, Malappuram 679332'
-        ]
+      const dosInput = document.getElementById('dos-input');
+      const dosOutput = document.getElementById('dos-output');
+      const dosCommands = {
+        help: 'Commands: whoami | github | skills | projects | internships | games | clear',
+        whoami: 'Sanjay Suresh V. — B.Sc. Physics (Hons. with Research), University College TVM.',
+        github: 'Opening https://github.com/sanjaysureshv ...',
+        skills: 'Python, C++, ADQL, NumPy, Pandas, Astropy, Astroquery, TOPCAT, ImageJ, OriginPro, LIBS.',
+        projects: '1) Sunspot Area & Mg II h Emission (Aditya-L1 SUIT)  2) Gaia Cepheid Cosmic Distance Scale.',
+        internships: '1) CUSAT Optics & LIBS  2) Quantum Century Science Communicator  3) IUCAA Solar School.',
+        games: 'Available: INVADERS.EXE, SNAKE.EXE, SWEEPER.EXE (Click desktop icons or Start Menu!)'
       };
 
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const raw = input.value.trim();
+      dosInput.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        const raw = dosInput.value.trim();
         const cmd = raw.toLowerCase();
-        if (!raw) return;
-
-        // Echo entered command
-        const cmdLine = document.createElement('p');
-        cmdLine.innerHTML = `<span class="text-yellow-300">C:\\SANJAY&gt;</span> <span class="text-white">${raw.replace(/</g, '&lt;')}</span>`;
-        output.appendChild(cmdLine);
+        dosInput.value = '';
+        if (!cmd) return;
 
         if (cmd === 'clear' || cmd === 'cls') {
-          output.innerHTML = '';
-        } else if (responses[cmd]) {
-          responses[cmd].forEach((line) => {
-            const p = document.createElement('p');
-            p.className = 'text-[#33ff33]';
-            p.textContent = line;
-            output.appendChild(p);
-          });
-        } else {
-          const err = document.createElement('p');
-          err.className = 'text-red-400';
-          err.textContent = `Bad command or file name: "${raw}". Type 'help' for valid commands.`;
-          output.appendChild(err);
+          dosOutput.textContent = '';
+          return;
         }
 
-        input.value = '';
-        screen.scrollTop = screen.scrollHeight;
-      });
-    }
+        let reply = dosCommands[cmd] || `'${raw}' is not recognized. Type 'help'.`;
+        dosOutput.textContent += `\nC:\\SANJAY> ${raw}\n${reply}\n`;
+        dosOutput.scrollTop = dosOutput.scrollHeight;
 
-    // Initialize OS on load
-    document.addEventListener('DOMContentLoaded', () => {
-      updateTaskbarClock();
-      setInterval(updateTaskbarClock, 15000);
-      renderTaskbarTabs('win-readme');
-      initTerminal();
-    });
+        if (cmd === 'github') {
+          window.open('https://github.com/sanjaysureshv', '_blank', 'noopener,noreferrer');
+        }
+      });
+
+      /* -----------------------------------------------------------------------
+         4. GAME 1: ASTRO_INVADERS.EXE (Solar Flare Defense)
+         ----------------------------------------------------------------------- */
+      const invCanvas = document.getElementById('canvas-invaders');
+      const invCtx = invCanvas.getContext('2d');
+      let invScore = 0, invBest = 0, invLives = 3, invGameOver = false, invLoopId = null;
+      let ship = { x: 162, y: 286, w: 36, h: 16 };
+      let bullets = [];
+      let enemies = [];
+      let enemyDir = 1;
+      let keys = {};
+
+      function resetInvaders() {
+        invScore = 0;
+        invLives = 3;
+        invGameOver = false;
+        ship.x = 162;
+        bullets = [];
+        enemies = [];
+        enemyDir = 1;
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 7; c++) {
+            enemies.push({ x: 26 + c * 44, y: 24 + r * 30, w: 26, h: 18, alive: true, row: r });
+          }
+        }
+        updateInvHUD();
+      }
+
+      function updateInvHUD() {
+        document.getElementById('inv-score').textContent = invScore;
+        if (invScore > invBest) invBest = invScore;
+        document.getElementById('inv-best').textContent = invBest;
+        document.getElementById('inv-lives').textContent = invLives;
+      }
+
+      function fireLaser() {
+        if (invGameOver) {
+          resetInvaders();
+          return;
+        }
+        if (bullets.length < 4) {
+          bullets.push({ x: ship.x + ship.w / 2 - 2, y: ship.y - 8, w: 4, h: 10 });
+        }
+      }
+
+      function isWindowVisible(id) {
+        const w = document.getElementById(id);
+        return w && w.classList.contains('open') && !w.classList.contains('minimized');
+      }
+
+      function stepInvaders() {
+        if (!isWindowVisible('win-game-invaders')) {
+          invLoopId = null;
+          return;
+        }
+
+        invCtx.fillStyle = '#070410';
+        invCtx.fillRect(0, 0, invCanvas.width, invCanvas.height);
+
+        // Starfield dots
+        invCtx.fillStyle = '#554488';
+        for (let i = 0; i < 20; i++) {
+          invCtx.fillRect((i * 53) % 360, (i * 97) % 320, 2, 2);
+        }
+
+        if (!invGameOver) {
+          if (keys['ArrowLeft'] || keys['KeyA']) ship.x = Math.max(6, ship.x - 4.5);
+          if (keys['ArrowRight'] || keys['KeyD']) ship.x = Math.min(invCanvas.width - ship.w - 6, ship.x + 4.5);
+
+          // Update bullets
+          bullets.forEach(b => b.y -= 7);
+          bullets = bullets.filter(b => b.y + b.h > 0);
+
+          // Move enemies
+          let hitEdge = false;
+          const aliveEnemies = enemies.filter(e => e.alive);
+          aliveEnemies.forEach(e => {
+            e.x += enemyDir * 1.15;
+            if (e.x <= 6 || e.x + e.w >= invCanvas.width - 6) hitEdge = true;
+          });
+          if (hitEdge) {
+            enemyDir *= -1;
+            aliveEnemies.forEach(e => {
+              e.y += 12;
+              if (e.y + e.h >= ship.y) {
+                invLives = 0;
+                invGameOver = true;
+              }
+            });
+          }
+
+          // Bullet-enemy collision
+          bullets.forEach(b => {
+            aliveEnemies.forEach(e => {
+              if (e.alive && b.x < e.x + e.w && b.x + b.w > e.x && b.y < e.y + e.h && b.y + b.h > e.y) {
+                e.alive = false;
+                b.y = -100;
+                invScore += 20;
+                updateInvHUD();
+              }
+            });
+          });
+
+          // Respawn wave if all cleared
+          if (enemies.every(e => !e.alive)) {
+            const keepScore = invScore;
+            resetInvaders();
+            invScore = keepScore;
+            updateInvHUD();
+          }
+        }
+
+        // Draw ship (Aditya-L1 Solar Probe)
+        invCtx.fillStyle = '#00e5ff';
+        invCtx.fillRect(ship.x + 14, ship.y - 6, 8, 6);
+        invCtx.fillStyle = '#ffd700';
+        invCtx.fillRect(ship.x, ship.y, ship.w, ship.h);
+
+        // Draw bullets
+        invCtx.fillStyle = '#33ff33';
+        bullets.forEach(b => invCtx.fillRect(b.x, b.y, b.w, b.h));
+
+        // Draw enemies (Solar Flares)
+        const rowColors = ['#ff3b30', '#ff9500', '#ff2d55', '#af52de'];
+        enemies.forEach(e => {
+          if (!e.alive) return;
+          invCtx.fillStyle = rowColors[e.row % rowColors.length];
+          invCtx.fillRect(e.x, e.y, e.w, e.h);
+          invCtx.fillStyle = '#000';
+          invCtx.fillRect(e.x + 5, e.y + 5, 4, 4);
+          invCtx.fillRect(e.x + e.w - 9, e.y + 5, 4, 4);
+        });
+
+        if (invGameOver) {
+          invCtx.fillStyle = 'rgba(0,0,0,0.75)';
+          invCtx.fillRect(30, 115, 300, 80);
+          invCtx.fillStyle = '#ffd700';
+          invCtx.font = '14px "Press Start 2P", monospace';
+          invCtx.textAlign = 'center';
+          invCtx.fillText('SOLAR BREACH!', 180, 148);
+          invCtx.font = '10px "Press Start 2P", monospace';
+          invCtx.fillStyle = '#fff';
+          invCtx.fillText('PRESS RESET OR LASER', 180, 175);
+        }
+
+        invLoopId = requestAnimationFrame(stepInvaders);
+      }
+
+      function startInvaders() {
+        if (enemies.length === 0) resetInvaders();
+        if (!invLoopId) invLoopId = requestAnimationFrame(stepInvaders);
+      }
+
+      document.getElementById('inv-restart').addEventListener('click', () => {
+        resetInvaders();
+        startInvaders();
+      });
+      document.getElementById('inv-fire').addEventListener('click', fireLaser);
+
+      // Hold-to-move touch/mouse buttons for Astro Invaders
+      function bindHoldBtn(btnId, code) {
+        const el = document.getElementById(btnId);
+        el.addEventListener('mousedown', () => keys[code] = true);
+        el.addEventListener('mouseup', () => keys[code] = false);
+        el.addEventListener('mouseleave', () => keys[code] = false);
+        el.addEventListener('touchstart', (e) => { e.preventDefault(); keys[code] = true; }, { passive: false });
+        el.addEventListener('touchend', () => keys[code] = false);
+      }
+      bindHoldBtn('inv-left', 'ArrowLeft');
+      bindHoldBtn('inv-right', 'ArrowRight');
+
+      /* -----------------------------------------------------------------------
+         5. GAME 2: PHOTON_SNAKE.EXE (Optical Bench Snake)
+         ----------------------------------------------------------------------- */
+      const snkCanvas = document.getElementById('canvas-snake');
+      const snkCtx = snkCanvas.getContext('2d');
+      const gridSize = 20;
+      const cols = snkCanvas.width / gridSize;
+      const rows = snkCanvas.height / gridSize;
+      let snake = [], snkDir = { x: 1, y: 0 }, nextDir = { x: 1, y: 0 }, photon = { x: 10, y: 7 };
+      let snkScore = 0, snkBest = 0, snkInterval = null, snkDead = false;
+
+      function resetSnake() {
+        snake = [{ x: 6, y: 7 }, { x: 5, y: 7 }, { x: 4, y: 7 }];
+        snkDir = { x: 1, y: 0 };
+        nextDir = { x: 1, y: 0 };
+        snkScore = 0;
+        snkDead = false;
+        spawnPhoton();
+        updateSnakeHUD();
+      }
+
+      function spawnPhoton() {
+        photon = {
+          x: Math.floor(Math.random() * cols),
+          y: Math.floor(Math.random() * rows)
+        };
+      }
+
+      function updateSnakeHUD() {
+        document.getElementById('snk-score').textContent = snkScore;
+        if (snkScore > snkBest) snkBest = snkScore;
+        document.getElementById('snk-best').textContent = snkBest;
+      }
+
+      function setSnakeDirection(dirName) {
+        if (dirName === 'UP' && snkDir.y !== 1) nextDir = { x: 0, y: -1 };
+        if (dirName === 'DOWN' && snkDir.y !== -1) nextDir = { x: 0, y: 1 };
+        if (dirName === 'LEFT' && snkDir.x !== 1) nextDir = { x: -1, y: 0 };
+        if (dirName === 'RIGHT' && snkDir.x !== -1) nextDir = { x: 1, y: 0 };
+      }
+
+      function tickSnake() {
+        if (!isWindowVisible('win-game-snake')) {
+          clearInterval(snkInterval);
+          snkInterval = null;
+          return;
+        }
+
+        snkCtx.fillStyle = '#07120c';
+        snkCtx.fillRect(0, 0, snkCanvas.width, snkCanvas.height);
+
+        // Optical bench grid lines
+        snkCtx.strokeStyle = '#11291b';
+        for (let x = 0; x <= snkCanvas.width; x += gridSize) {
+          snkCtx.beginPath(); snkCtx.moveTo(x, 0); snkCtx.lineTo(x, snkCanvas.height); snkCtx.stroke();
+        }
+        for (let y = 0; y <= snkCanvas.height; y += gridSize) {
+          snkCtx.beginPath(); snkCtx.moveTo(0, y); snkCtx.lineTo(snkCanvas.width, y); snkCtx.stroke();
+        }
+
+        if (!snkDead) {
+          snkDir = nextDir;
+          const head = { x: snake[0].x + snkDir.x, y: snake[0].y + snkDir.y };
+
+          // Wall or self collision
+          if (
+            head.x < 0 || head.x >= cols ||
+            head.y < 0 || head.y >= rows ||
+            snake.some(seg => seg.x === head.x && seg.y === head.y)
+          ) {
+            snkDead = true;
+          } else {
+            snake.unshift(head);
+            if (head.x === photon.x && head.y === photon.y) {
+              snkScore += 10;
+              updateSnakeHUD();
+              spawnPhoton();
+            } else {
+              snake.pop();
+            }
+          }
+        }
+
+        // Draw photon packet
+        snkCtx.fillStyle = '#ffd700';
+        snkCtx.fillRect(photon.x * gridSize + 3, photon.y * gridSize + 3, gridSize - 6, gridSize - 6);
+
+        // Draw laser beam snake
+        snake.forEach((seg, idx) => {
+          snkCtx.fillStyle = idx === 0 ? '#80ff80' : '#33ff33';
+          snkCtx.fillRect(seg.x * gridSize + 1, seg.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        });
+
+        if (snkDead) {
+          snkCtx.fillStyle = 'rgba(0,0,0,0.75)';
+          snkCtx.fillRect(25, 110, 290, 75);
+          snkCtx.fillStyle = '#ff3b30';
+          snkCtx.font = '13px "Press Start 2P", monospace';
+          snkCtx.textAlign = 'center';
+          snkCtx.fillText('BEAM ABSORBED!', 170, 142);
+          snkCtx.fillStyle = '#fff';
+          snkCtx.font = '9px "Press Start 2P", monospace';
+          snkCtx.fillText('CLICK NEW TO RESTART', 170, 168);
+        }
+      }
+
+      function startSnake() {
+        if (snake.length === 0) resetSnake();
+        if (!snkInterval) snkInterval = setInterval(tickSnake, 130);
+      }
+
+      document.getElementById('snk-restart').addEventListener('click', () => {
+        resetSnake();
+        startSnake();
+      });
+      document.querySelectorAll('[data-snk-dir]').forEach(btn => {
+        btn.addEventListener('click', () => setSnakeDirection(btn.dataset.snkDir));
+      });
+
+      /* -----------------------------------------------------------------------
+         6. GAME 3: QUANTUM_SWEEPER.EXE (9x9 Classic Minesweeper)
+         ----------------------------------------------------------------------- */
+      const MS_SIZE = 9, MS_MINES = 10;
+      let msGrid = [], msOver = false, msFlagMode = false, msFlags = 0, msSeconds = 0, msTimerId = null, msInitialized = false;
+
+      function initMinesweeper() {
+        msInitialized = true;
+        msOver = false;
+        msFlags = 0;
+        msSeconds = 0;
+        clearInterval(msTimerId);
+        msTimerId = null;
+        document.getElementById('ms-timer').textContent = '000';
+        document.getElementById('ms-mines-left').textContent = MS_MINES;
+        document.getElementById('ms-reset-btn').textContent = '🙂';
+
+        msGrid = Array.from({ length: MS_SIZE }, () =>
+          Array.from({ length: MS_SIZE }, () => ({
+            mine: false, revealed: false, flagged: false, count: 0
+          }))
+        );
+
+        let placed = 0;
+        while (placed < MS_MINES) {
+          const r = Math.floor(Math.random() * MS_SIZE);
+          const c = Math.floor(Math.random() * MS_SIZE);
+          if (!msGrid[r][c].mine) {
+            msGrid[r][c].mine = true;
+            placed++;
+          }
+        }
+
+        for (let r = 0; r < MS_SIZE; r++) {
+          for (let c = 0; c < MS_SIZE; c++) {
+            if (msGrid[r][c].mine) continue;
+            let n = 0;
+            for (let dr = -1; dr <= 1; dr++) {
+              for (let dc = -1; dc <= 1; dc++) {
+                const nr = r + dr, nc = c + dc;
+                if (nr >= 0 && nr < MS_SIZE && nc >= 0 && nc < MS_SIZE && msGrid[nr][nc].mine) n++;
+              }
+            }
+            msGrid[r][c].count = n;
+          }
+        }
+        renderMinesweeper();
+      }
+
+      function revealCell(r, c) {
+        if (msOver || r < 0 || r >= MS_SIZE || c < 0 || c >= MS_SIZE) return;
+        const cell = msGrid[r][c];
+        if (cell.revealed || cell.flagged) return;
+
+        if (!msTimerId) {
+          msTimerId = setInterval(() => {
+            if (!isWindowVisible('win-game-mines') || msOver) return;
+            msSeconds = Math.min(999, msSeconds + 1);
+            document.getElementById('ms-timer').textContent = String(msSeconds).padStart(3, '0');
+          }, 1000);
+        }
+
+        cell.revealed = true;
+        if (cell.mine) {
+          msOver = true;
+          document.getElementById('ms-reset-btn').textContent = '😵';
+          msGrid.forEach(row => row.forEach(x => { if (x.mine) x.revealed = true; }));
+          renderMinesweeper();
+          return;
+        }
+
+        if (cell.count === 0) {
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              revealCell(r + dr, c + dc);
+            }
+          }
+        }
+
+        // Check win
+        let unrevealedSafe = 0;
+        msGrid.forEach(row => row.forEach(x => { if (!x.mine && !x.revealed) unrevealedSafe++; }));
+        if (unrevealedSafe === 0) {
+          msOver = true;
+          document.getElementById('ms-reset-btn').textContent = '😎';
+          showToast('Quantum Field Cleared! You win!');
+        }
+        renderMinesweeper();
+      }
+
+      function toggleFlag(r, c) {
+        if (msOver) return;
+        const cell = msGrid[r][c];
+        if (cell.revealed) return;
+        cell.flagged = !cell.flagged;
+        msFlags += cell.flagged ? 1 : -1;
+        document.getElementById('ms-mines-left').textContent = Math.max(0, MS_MINES - msFlags);
+        renderMinesweeper();
+      }
+
+      function renderMinesweeper() {
+        const board = document.getElementById('ms-board');
+        board.innerHTML = '';
+        for (let r = 0; r < MS_SIZE; r++) {
+          for (let c = 0; c < MS_SIZE; c++) {
+            const cell = msGrid[r][c];
+            const btn = document.createElement('button');
+            btn.className = 'ms-cell' + (cell.revealed ? ' revealed' : '') + (cell.revealed && cell.mine ? ' mine' : '');
+            if (cell.revealed) {
+              if (cell.mine) {
+                btn.textContent = '💣';
+              } else if (cell.count > 0) {
+                btn.textContent = cell.count;
+                btn.classList.add('ms-n' + cell.count);
+              }
+            } else if (cell.flagged) {
+              btn.textContent = '🚩';
+            }
+
+            btn.addEventListener('click', () => {
+              if (msFlagMode) toggleFlag(r, c);
+              else revealCell(r, c);
+            });
+            btn.addEventListener('contextmenu', (e) => {
+              e.preventDefault();
+              toggleFlag(r, c);
+            });
+            board.appendChild(btn);
+          }
+        }
+      }
+
+      document.getElementById('ms-reset-btn').addEventListener('click', initMinesweeper);
+      const flagModeBtn = document.getElementById('ms-flag-mode-btn');
+      flagModeBtn.addEventListener('click', () => {
+        msFlagMode = !msFlagMode;
+        flagModeBtn.textContent = msFlagMode ? '🚩 Flag Mode: ON' : '🚩 Flag Mode: OFF';
+        flagModeBtn.classList.toggle('retro-btn-gold', msFlagMode);
+      });
+
+      /* -----------------------------------------------------------------------
+         7. GLOBAL KEYBOARD HANDLER FOR ACTIVE GAMES
+         ----------------------------------------------------------------------- */
+      window.addEventListener('keydown', (e) => {
+        if (document.activeElement === dosInput) return;
+
+        const invActive = document.getElementById('win-game-invaders').classList.contains('active') && isWindowVisible('win-game-invaders');
+        const snkActive = document.getElementById('win-game-snake').classList.contains('active') && isWindowVisible('win-game-snake');
+
+        if (invActive) {
+          if (['ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) e.preventDefault();
+          keys[e.code] = true;
+          if (e.code === 'Space') fireLaser();
+        } else if (snkActive) {
+          if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
+          if (e.code === 'ArrowUp' || e.code === 'KeyW') setSnakeDirection('UP');
+          if (e.code === 'ArrowDown' || e.code === 'KeyS') setSnakeDirection('DOWN');
+          if (e.code === 'ArrowLeft' || e.code === 'KeyA') setSnakeDirection('LEFT');
+          if (e.code === 'ArrowRight' || e.code === 'KeyD') setSnakeDirection('RIGHT');
+        }
+      });
+
+      window.addEventListener('keyup', (e) => {
+        keys[e.code] = false;
+      });
+
+      // Initial render of taskbar tabs
+      renderTaskbar();
+    })();
   </script>
 </body>
 </html>
