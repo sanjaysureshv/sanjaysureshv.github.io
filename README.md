@@ -1,4 +1,4 @@
-# SANJAY_OS v95.26 — Sanjay Suresh V.
+# SANJAY  — Sanjay Suresh V.
 
 **Live Portfolio:** https://sanjaysureshv.github.io/
 
